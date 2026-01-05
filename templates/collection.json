@@ -1,0 +1,87 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": true,
+        "color_scheme": "scheme-3"
+      }
+    },
+    "collection_curated_row_intersect_ham3Mn": {
+      "type": "collection-curated-row-intersect",
+      "name": "Collection curated row",
+      "settings": {
+        "heading": "New Arrivals in",
+        "flag_collection": "new-arrivals",
+        "limit": 8,
+        "show_view_all": true
+      }
+    },
+    "collection_curated_row_intersect_WmbMjk": {
+      "type": "collection-curated-row-intersect",
+      "name": "Collection curated row",
+      "settings": {
+        "heading": "Trending in",
+        "flag_collection": "bestsellers-customers-choice",
+        "limit": 8,
+        "show_view_all": true
+      }
+    },
+    "collection_curated_row_intersect_GCX67g": {
+      "type": "collection-curated-row-intersect",
+      "name": "Collection curated row",
+      "settings": {
+        "heading": "Sale in",
+        "flag_collection": "winteks-huge-sale",
+        "limit": 8,
+        "show_view_all": true
+      }
+    },
+    "collection_divider_AiKUkV": {
+      "type": "collection-divider",
+      "name": "Collection divider",
+      "settings": {
+        "space_top": 24,
+        "space_bottom": 24
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 20,
+        "columns_desktop": 5,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "enable_filtering": true,
+        "filter_type": "vertical",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "collection_curated_row_intersect_ham3Mn",
+    "collection_curated_row_intersect_WmbMjk",
+    "collection_curated_row_intersect_GCX67g",
+    "collection_divider_AiKUkV",
+    "product-grid"
+  ]
+}

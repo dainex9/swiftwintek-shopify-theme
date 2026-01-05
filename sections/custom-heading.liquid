@@ -1,0 +1,104 @@
+<section class="custom-heading-section blue-lin-rad__bg color-{{ section.settings.color_scheme }} ">
+  <div class="{% unless section.settings.full_width %}page-width{% else %}page-width--full{% endunless %} text-{{ section.settings.text_alignment }}">
+    <div class="section-header" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+      {{ section.settings.html_heading }}
+      {% if section.settings.show_underline %}
+        <div class="section-underline"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-header {
+    text-align: center;
+  }
+  .section-underline {
+    display: block;
+    width: 120px;
+    height: 3px;
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
+    background: linear-gradient(to right, #0073ff, #00b6f5);
+    position: relative;
+  }
+  .section-underline::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 10px;
+    height: 10px;
+    border-right: 3px solid #00b6f5;
+    border-bottom: 3px solid #00b6f5;
+    transform: translateY(-4px) rotate(45deg);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Advanced Heading",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "html_heading",
+      "label": "Heading (HTML supported)",
+      "default": "<h2 class='carousel-heading'>Discover Our <span class='highlight-blue font-italic'>Most</span> Beloved Collections</h2>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_underline",
+      "label": "Show underline",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Advanced Heading"
+    }
+  ]
+}
+{% endschema %}

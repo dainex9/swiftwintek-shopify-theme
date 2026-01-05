@@ -1,0 +1,40 @@
+{% comment %}
+  Swiftwintek - Track Order Section
+  Displays a tracking banner, description, and CTA to /pages/track-your-order
+{% endcomment %}
+
+<div style="max-width: 960px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; font-family: 'Montserrat', sans-serif;">
+  <img
+    src="{{ 'Track_your_Order_with_AfterShip.png' | file_url }}"
+    alt="Track Your Order - Swiftwintek"
+    style="width: 75%; max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;"
+  >
+
+  <h2 class="h1-normal font-wght__bold-regular font-mserrat" style="color: #111827; margin-bottom: 1rem;">Track Your Order</h2>
+  <p class="font-mplus h5-normal color__dark-blue-categry-hdr ltr-spacing__inline line-height__large" style="max-width: 600px; margin: 3rem auto;">
+    Already placed an order? You can check your delivery status at any time using your tracking number. Fast, easy, and
+    secure.
+  </p>
+
+  <a
+    href="/pages/track-your-order"
+    class="btn-inline bdr-radius__normal-extra"
+  >
+    Go to Tracking Portal
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "Track Order Section",
+  "tag": "section",
+  "class": "section-track-order",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Track Order Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

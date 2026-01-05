@@ -1,0 +1,93 @@
+{% comment %}
+  Swtek: eBay-style condition block (fixed)
+  Requires metafields:
+  - product.metafields.custom.product_condition
+  - product.metafields.custom.condition_description
+{% endcomment %}
+
+{% assign cond = product.metafields.custom.product_condition.value | default: '' %}
+{% assign cond_desc = product.metafields.custom.condition_description.value | default: '' %}
+
+<div class="ebay-style-condition-block pd-left__narrow-plus">
+  <span class="condition-label">
+    <strong>Condition:&nbsp;</strong>
+    {% if cond != blank %}
+      {{ cond }}
+    {% else %}
+      New
+    {% endif %}
+    <div class="tooltip-container align-self-center mg-left__micro-plus">
+      <span class="tooltip-trigger flex-row__all-center">
+        <i class="fa-solid fa-circle-info color__blue margin-right__none"
+           style="color: #0073ff; font-size: 15px;"
+           aria-hidden="true"></i>
+      </span>
+      <div class="tooltip-box" role="tooltip">
+        <strong style="margin-bottom: 4px;" class="display-block font-mserrat color__dark-blue-txt h4-normal font-wght__bold-regular">
+          About Product Condition
+        </strong>
+        <p>
+          Product condition indicates the item’s <strong>physical</strong> and <strong>functional state</strong>.
+          It may be listed as <strong>New</strong>, <strong>Open Box</strong>, <strong>Refurbished</strong>, or
+          <strong>Used</strong> (e.g., <strong>Very Good</strong> or <strong>Like New</strong>).
+          All items are <strong>inspected</strong> and <strong>described accurately</strong>.
+        </p>
+        <a href="/pages/product-condition-guide"
+           class="shipping-link mg-top__thick-xplus"
+           title="Learn more about product conditions at Swiftwintek"
+           aria-label="Learn more about how Swiftwintek defines product conditions like New, Open Box, Refurbished, and Used">
+           Learn more
+        </a>
+      </div>
+    </div>
+  </span>
+</div>
+
+<div class="condition-desc-box">
+  <span class="material-symbols-outlined notranslate condition-icon"
+        style="
+        {% case cond %}
+          {% when 'New' %}color:#0073ff;{% comment %}Blue – new item{% endcomment %}
+          {% when 'Open Box' %}color:#009688;{% comment %}Teal – lightly handled{% endcomment %}
+          {% when 'Used – Like New' %}color:#00b67a;{% comment %}Mint green – renewed/inspected{% endcomment %}
+          {% when 'Used – Very Good' %}color:#f7a600;{% comment %}Amber – used but working{% endcomment %}
+          {% when 'Refurbished' %}color:#8b5cf6;{% comment %}Violet – factory renewed{% endcomment %}
+          {% else %}color:#5c6ac4;{% comment %}Default neutral blue-grey{% endcomment %}
+        {% endcase %}
+        ">
+    {% case cond %}
+      {% when 'New' %}
+        workspace_premium
+      {% when 'Open Box' %}
+        inventory_2
+      {% when 'Used – Like New' %}
+        autorenew
+      {% when 'Used – Very Good' %}
+        history_edu
+      {% when 'Refurbished' %}
+        build_circle
+      {% else %}
+        workspace_premium
+    {% endcase %}
+  </span>
+
+  {% if cond_desc != blank %}
+    {{ cond_desc }}
+  {% else %}
+    {% case cond %}
+      {% when 'New' %}
+        Brand new item, unused and unopened in original packaging.
+      {% when 'Open Box' %}
+        Item opened for inspection, unused and repackaged in original or plain box.
+      {% when 'Used – Like New' %}
+        Pre-owned item in excellent condition, fully tested and verified.
+      {% when 'Used – Very Good' %}
+        Gently used item showing minor signs of wear, fully functional.
+      {% when 'Refurbished' %}
+        Professionally restored to full working order, inspected and tested.
+      {% else %}
+        Product inspected and tested to ensure functionality.
+    {% endcase %}
+  {% endif %}
+</div>
+

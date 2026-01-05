@@ -1,0 +1,57 @@
+{% comment %} Featured Products Carousel Section {% endcomment %}
+<nav class="main-carousel__wrapper wrapper-base__template-center" id="featured-products__carousel-wrapper">
+  <!-- Left Button (Desktop) -->
+  <button class="chevron btn-general desktop" onclick="cardSlide('featured-prod-container', 'left')" aria-label="Previous">
+    <span class="chevron-left material-symbols-outlined notranslate"> chevron_left </span>
+  </button>
+
+  <!-- Carousel Section -->
+  <section class="wrapper-base__template-column-all-center overflow__hidden">
+    <section class="carousel-navigate__mobile">
+      <!-- Carousel Title -->
+      <h2 class="peralta-regular carousel-label wrapper-base__template-center font-mserrat font-wght__medium" id="featured-products-label">
+        <span class="margin-right__mini">Featured</span>
+        <span>Products</span>
+      </h2>
+
+      <!-- Mobile Navigation Buttons -->
+      <div class="flex-row__all-center">
+        <button class="chevron btn-general mobile" onclick="cardSlide('featured-prod-container', 'left')" aria-label="Previous">
+          <span id="chevron-left__mobile" class="chevron-left material-symbols-outlined notranslate"> chevron_left </span>
+        </button>
+
+        <button class="chevron btn-general mobile" onclick="cardSlide('featured-prod-container', 'right')" aria-label="Next">
+          <span id="chevron-right__mobile" class="chevron-right material-symbols-outlined notranslate"> chevron_right </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Carousel List (Dynamically Populated with Articles) -->
+    <ul class="carousel-inner__wrapper wrapper-base__template-align-start car-inner__bdr-top inner-car__wrapper" id="featured-prod-container" aria-live="polite">
+      <!-- Articles will be populated here -->
+    </ul>
+
+    <a class="car-see-all__btn button" href="/collections/editors-choice" title="Shop Editor's Choice Collection" aria-label="Link to the Editor's Choice collection of handpicked top-rated products">
+      Editor's Choice
+    </a>
+  </section>
+
+  <!-- Right Button (Desktop) -->
+  <button class="chevron btn-general desktop" onclick="cardSlide('featured-prod-container', 'right')" aria-label="Next">
+    <span class="chevron-right material-symbols-outlined notranslate"> chevron_right </span>
+  </button>
+</nav>
+
+{% schema %}
+{
+  "name": "Featured Carousel",
+  "tag": "section",
+  "class": "featured-products-carousel",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Featured Carousel"
+    }
+  ]
+}
+{% endschema %}

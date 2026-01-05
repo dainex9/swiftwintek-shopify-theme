@@ -1,0 +1,121 @@
+{% if template.name == 'collection' and collection %}
+  {% assign flag_col = section.settings.flag_collection %}
+  {% assign limit = section.settings.limit | default: 8 %}
+
+  {% if flag_col != blank and flag_col.products_count > 0 %}
+    {%- comment -%}
+      Build a fast lookup string of product IDs inside the flag collection.
+      (String approach is the most reliable in Liquid)
+    {%- endcomment -%}
+    {% capture flag_ids %},{% endcapture %}
+    {% for p in flag_col.products %}
+      {% capture flag_ids %}{{ flag_ids }}{{ p.id }},{% endcapture %}
+    {% endfor %}
+
+    {%- comment -%} Count matches in the current collection {%- endcomment -%}
+    {% assign matches = 0 %}
+    {% for product in collection.products %}
+      {% capture needle %},{{ product.id }},{% endcapture %}
+      {% if flag_ids contains needle %}
+        {% assign matches = matches | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+
+    {% if matches > 0 %}
+      <div class="page-width coll-curated-row__wrapper" style="margin-top: 24px;">
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+          {% assign clean_title = collection.title | split: '-' | last | strip %}
+          {% assign h = section.settings.heading | downcase %}
+
+        <h2 class="h2 h2-extra font-contrail color__dark-blue-txt ltr-spac__inline--soft line-height__std-extra text-align-left flex-row__all-center gap-1-5r">
+          {{ section.settings.heading }} {{ clean_title }}
+
+        {% if h contains 'new arrivals' %}
+          <span class="tooltip-container" style="z-index: 10;">
+            <span class="tooltip-trigger flex-row__all-center" role="button" tabindex="0"
+                  aria-label="What does New Arrivals mean?">
+              <i class="fa-solid fa-circle-info color__blue margin-right__none"
+                style="color:#0073ff;font-size:15px;"
+                aria-hidden="true"></i>
+            </span>
+            <span class="tooltip-box" style="z-index: 10;" role="tooltip">
+              <p>Products <em style="text-decoration: underline;">recently added</em> to this collection.</p>
+            </span>
+          </span>
+        {% endif %}
+      </h2>
+        {% if section.settings.show_view_all %}
+          <div class="view-all-link">
+            <a class="link flex-row__all-center gap-1r" href="{{ collection.url }}" aria-label="View all">
+              <span class="view-all-text">View all</span>
+              <span class="material-symbols-outlined notranslate color__dark-blue-txt" aria-hidden="true">arrow_right_alt</span>
+            </a>
+          </div>
+
+        {% endif %}
+        </div>
+
+        <ul class="grid product-grid grid--2-col-tablet-down grid--5-col-desktop" role="list" style="margin-top: 12px;">
+          {% assign shown = 0 %}
+          {% for product in collection.products %}
+            {% capture needle %},{{ product.id }},{% endcapture %}
+            {% if flag_ids contains needle %}
+              <li class="grid__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'square',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: true
+                %}
+              </li>
+
+              {% assign shown = shown | plus: 1 %}
+              {% if shown >= limit %}{% break %}{% endif %}
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collection curated row",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading prefix",
+      "default": "New Arrivals in"
+    },
+    {
+      "type": "collection",
+      "id": "flag_collection",
+      "label": "Smart collection to intersect (e.g. New Arrivals)"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Max products",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' link (goes to this collection)",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection curated row"
+    }
+  ]
+}
+{% endschema %}
+

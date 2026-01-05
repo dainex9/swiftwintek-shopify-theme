@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  "files.associations": {
+    "*.liquid": "liquid"
+  },
+
+  "[liquid]": {
+    "editor.formatOnSave": false
+  },
+  "[json.liquid]": {
+    "editor.formatOnSave": false
+  },
+  "[html]": {
+    "editor.formatOnSave": false
+  }
+}

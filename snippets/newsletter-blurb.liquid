@@ -1,0 +1,100 @@
+{% comment %}
+  Snippet: newsletter-blurb
+  Usage:
+  {% render 'newsletter-blurb' %}
+  or with options:
+  {% render 'newsletter-blurb',
+    max_width: 500,
+    show_form: true
+  %}
+{% endcomment %}
+
+{% assign max_width = max_width | default: 500 %}
+{% assign show_form = show_form | default: true %}
+
+<section
+  class="
+    flex-column__all-center
+    font-mserrat
+    color__dark-blue-categry-hdr
+    gap-2r
+  "
+  style="
+    max-width: {{ max_width }}px;
+    margin: auto;
+  "
+>
+  <!-- Header card -->
+  <div id="newsletter-blurb__top"
+    class="font-contrail h1-normal margin-bottom__none flex-column__all-center gap-3r ltr-spac__inline--soft std-box__shadow"
+    style="padding: 3rem 3rem 1rem; font-family: Contrail One;"
+  >
+    <div class="flex-row__all-center gap-1-5r">
+      <i class="fa-solid fa-envelope color__dark-blue-txt" aria-hidden="true"></i>
+
+      <span
+        class="h5-xtra ltr-spacing__inline font-mserrat font-wght__thin-plus flex-row__all-center gap-sm"
+        style="background-color: #f4f6fa; padding: .6rem 3rem; border-radius: 32px; font-weight: 300;"
+      >
+        <span class="color__white-txt subtle-txt__shadow font-wght__bolder-extra" style="letter-spacing: .25em;">..</span><span class="soft-txt" id="newsletter-blurb__thin">Interested in more?</span>
+      </span>
+    </div>
+
+    <h2 class="flex-column__all-center h1-x-xtra-plus line-height__std-extra font-contrail" style="margin: 0;">
+      <span class="color__blue">Subscribe to</span>
+      <span>our Newsletter</span>
+    </h2>
+  </div>
+
+  <!-- Value pill -->
+  <p class="h3-normal font-mplus font-wght__thin-plus ltr-spacing__inline--xtr line-height__large text-align__center gap-xs flex-column__all-center" style="font-weight: 300;">
+    <span
+      class="color__white-txt font-wght__thin-plus color__dark-blue-bg ws-no-wrap"
+      style="padding: .5rem 3rem; border-radius: 32px; font-weight: 300;"
+    >
+      Product updates, early access, and
+      <span class="font-contrail color__baby-blue-highlight-txt ltr-spacing__inline">tech insights</span>
+      — occasionally.
+    </span>
+  </p>
+
+  {% if show_form %}
+    {% assign newsletter_form_id = 'NewsletterForm-' | append: section.id | default: 'article-newsletter' %}
+
+    {% form 'customer', id: newsletter_form_id, class: 'newsletter-form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+
+      <div class="newsletter-blurb__inner newsletter-form__inner">
+        <div class="flex-column__align-start gap-sm wd-100pct">
+          <input
+            type="email"
+            name="contact[email]"
+            required
+            placeholder="Enter your email"
+            class="newsletter-input"
+            autocomplete="email"
+            value="{% if customer %}{{ customer.email }}{% endif %}"
+          >
+
+          <p class="h5-normal line-height__standard" style="opacity: 0.8; text-align: start;">
+            No spam.
+            <span class="swtek-word--subscribe">Unsubscribe</span>
+            anytime.
+          </p>
+        </div>
+
+        <button type="submit" class="newsletter-button btn-inline" style="margin-top: 4px;">
+          Subscribe
+        </button>
+      </div>
+
+      {% if form.posted_successfully? %}
+        <p class="newsletter-success">Thanks for subscribing!</p>
+      {% endif %}
+
+      {% if form.errors %}
+        <p class="newsletter-error">{{ form.errors | first }}</p>
+      {% endif %}
+    {% endform %}
+  {% endif %}
+</section>

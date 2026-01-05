@@ -1,0 +1,164 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width">
+  <div class="flex-column__all-center">
+    <h1 class="title padding-x--std color__blue h1-max text-align-center margin-bottom__none font-mserrat font-wght__bold-regular title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}" style="margin-top: 4.5rem;">
+    {{ section.settings.title }}
+    </h1>
+    
+      <div class="discovery-icon-wrapper text-align-center">
+  <svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="discovery-icon">
+  <!-- Outer Circle (Thinner stroke for premium look) -->
+  <circle cx="75" cy="75" r="56" stroke="#1a1a1a" stroke-width="4" fill="none"/>
+  
+  <!-- Center Dot (Slightly larger for better balance) -->
+  <circle cx="75" cy="75" r="7.5" fill="#0073ff"/>
+  
+  <!-- Compass Needle (Stronger lines, modern tech aesthetic) -->
+  <path d="M99 51L78 79L51 99L72 71L99 51Z" 
+        stroke="#0073ff" 
+        stroke-width="6" 
+        stroke-linejoin="round" 
+        fill="none"/>
+</svg>
+</div>
+    <h2 class="discovery-section-sub font-mplus color__dark-blue-txt line-height__large margin-bottom__thicker text-align-center padding-bottom__narrow-pl thin-lgrey__border-bottom margin-mobile-std" style="font-size: 1.85rem;">
+      Browse our complete catalog of <span class="font-wght__bold-regular">tech gear</span>, <span class="font-wght__bold-regular">collectibles</span>, and <span class="font-wght__bold-regular">more</span>. Discover top-rated finds, new arrivals, and everything Swiftwintek has to offer — <span class="font-wght__bold-regular">all in one place</span>.
+    </h2>
+</div>
+  {%- liquid
+    case section.settings.sort
+      when 'products_high', 'products_low'
+        assign collections = collections | sort: 'all_products_count'
+      when 'date', 'date_reversed'
+        assign collections = collections | sort: 'published_at'
+    endcase
+
+    if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+      assign collections = collections | reverse
+    endif
+
+    assign moduloResult = 28 | modulo: section.settings.columns_desktop
+    assign paginate_by = 30
+    if moduloResult == 0
+      assign paginate_by = 28
+    endif
+  -%}
+{%- assign menu_handle = section.settings.discover_menu | default: 'discover-collections' -%}
+{%- assign discover_links = linklists[menu_handle].links | where: 'type', 'collection_link' -%}
+
+{%- if discover_links.size > 0 -%}
+  <ul class="collection-list discover-collection-list padding-bottom__medium-plus grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down" role="list">
+    {%- for l in discover_links -%}
+      {%- assign collection = l.object -%}
+      {%- if collection -%}
+        <li
+          class="collection-list__item grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order: {{ forloop.index }};"{% endif %}
+        >
+          {% render 'card-collection',
+            card_collection: collection,
+            media_aspect_ratio: section.settings.image_ratio,
+            columns: 3
+          %}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+{%- else -%}
+  <p>No Discovery collections configured. Add them to the <em>{{ menu_handle }}</em> menu.</p>
+{%- endif -%}
+
+</div>
+{% schema %}
+{
+  "name": "t:sections.main-list-collections.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "t:sections.main-list-collections.settings.title.label",
+      "default": "t:sections.main-list-collections.settings.title.default"
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "options": [
+        {
+          "value": "alphabetical",
+          "label": "t:sections.main-list-collections.settings.sort.options__1.label"
+        },
+        {
+          "value": "alphabetical_reversed",
+          "label": "t:sections.main-list-collections.settings.sort.options__2.label"
+        },
+        {
+          "value": "date_reversed",
+          "label": "t:sections.main-list-collections.settings.sort.options__3.label"
+        },
+        {
+          "value": "date",
+          "label": "t:sections.main-list-collections.settings.sort.options__4.label"
+        },
+        {
+          "value": "products_high",
+          "label": "t:sections.main-list-collections.settings.sort.options__5.label"
+        },
+        {
+          "value": "products_low",
+          "label": "t:sections.main-list-collections.settings.sort.options__6.label"
+        }
+      ],
+      "default": "alphabetical",
+      "label": "t:sections.main-list-collections.settings.sort.label"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.main-list-collections.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.main-list-collections.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.main-list-collections.settings.image_ratio.options__3.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.main-list-collections.settings.image_ratio.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.main-list-collections.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.main-list-collections.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.main-list-collections.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "2",
+      "label": "t:sections.main-list-collections.settings.columns_mobile.label"
+    }
+  ]
+}
+{% endschema %}

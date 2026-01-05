@@ -1,0 +1,44 @@
+{%- assign mw = product.metafields.custom.specs_manufacturer_warranty | default: '' | strip -%}
+{%- assign wp = product.metafields.custom.specs_warranty_parts | default: '' | strip -%}
+{%- assign wl = product.metafields.custom.specs_warranty_labor | default: '' | strip -%}
+
+{%- assign has_warranty = false -%}
+{%- if mw != '' or wp != '' or wl != '' -%}
+  {%- assign has_warranty = true -%}
+{%- endif -%}
+
+{%- if has_warranty -%}
+  <section class="ProductWarranty bg-surface-subtle font-mplus" aria-labelledby="warranty-heading">
+    <details class="pw-accordion flex-column__all-center">
+      <summary class="pw-summary flex-row__all-center gap-1r">
+        <h3 id="warranty-heading" class="pw-title font-mplus h2-normal color__dark-blue-txt">Warranty &amp; Support</h3>
+        <span class="pw-chevron material-symbols-outlined notranslate" aria-hidden="true">chevron_right</span>
+      </summary>
+
+      <div class="pw-content">
+        <dl class="pw-table mg-top__thick-xplus">
+          {%- if mw != '' -%}
+            <div class="pw-row">
+              <dt>Manufacturer Warranty:</dt>
+              <dd>{{ mw }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if wp != '' -%}
+            <div class="pw-row">
+              <dt>Warranty (Parts):</dt>
+              <dd>{{ wp }}</dd>
+            </div>
+          {%- endif -%}
+
+          {%- if wl != '' -%}
+            <div class="pw-row">
+              <dt>Warranty (Labor):</dt>
+              <dd>{{ wl }}</dd>
+            </div>
+          {%- endif -%}
+        </dl>
+      </div>
+    </details>
+  </section>
+{%- endif -%}

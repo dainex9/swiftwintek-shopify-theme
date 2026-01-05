@@ -1,0 +1,27 @@
+{% comment %}
+  Template: reward-claim.liquid
+  Shows embedded Klaviyo form only to eligible customers
+{% endcomment %}
+
+{% layout 'theme' %}
+
+<div class="page-width" style="padding: 3rem 1rem; text-align: center;">
+  <h1>Claim Your Wintek Reward</h1>
+
+  {% if customer %}
+    {% if customer.tags contains 'Eligible250+' %}
+      <p>🎉 You've earned 250+ Wintek Eggs — unlock your exclusive reward below.</p>
+
+      <!-- 🔻 Klaviyo Form Embed -->
+      <!-- Paste your exact Klaviyo embed div here -->
+      <div class="klaviyo-form-TtvWYE"></div>
+      <script async type="text/javascript" src="https://www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+
+    {% else %}
+      <p>⚠️ This reward is only available to customers with 250+ Wintek Eggs.</p>
+      <a href="/pages/rewards-program" class="button">Learn How to Earn Rewards</a>
+    {% endif %}
+  {% else %}
+    <p>Please <a href="/account/login">log in</a> to check your reward eligibility.</p>
+  {% endif %}
+</div>

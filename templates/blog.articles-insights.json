@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_E6kq6A": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "#container p {border-top: 0.5px solid #747f8a;}"
+      ],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div id=\"wintek-collection__header-label\" class=\"wrapper-base__template-column-center large-blue__border-top color__card-dimgrey-std std__box-shadow\" style=\"background: \n  linear-gradient(135deg, #fcfcfc 0%, #f1f1f1 60%, rgba(0, 182, 245, 0.1) 100%), \n  radial-gradient(circle at 50% 0%, rgba(0, 182, 245, 0.3) 35%, rgba(0, 182, 245, 0) 90%);\n  background-attachment: fixed;\"\">\n<h1 class=\"font-mserrat h1-normal margin-bottom__medium mg-top__thick-xplus\" style=\"color: #4e5571; margin-top: 3rem;\">\n<span style=\"font-weight: 750;\">Articles</span> & <span class=\"font-contrail color__orange-red text-dec__uline\" style=\"font-weight: 600;\">Insights\n</span>\n</h1>\n<div class=\"margin-bottom__thick wrapper-base__template-column-all-center\">\n<h2 class=\"line-height__standard padding-left__thick padding-right__thick bg-transparent font-mplus color__dark-blue-txt margin-bottom__thickest h2-normal\" style=\"font-weight: 300;\"><strong>Technical articles, reviews, </strong>& insights on electronics, PC hardware,</strong> and <strong>software</strong>.\n</h2>\n<div style=\"border-bottom: 3px solid rgba(63, 71, 88, .1); padding-bottom: 2rem;\">\n<span class=\"material-symbols-outlined notranslate color__orange-red\" style=\"font-size: 27px; border: 3px solid rgb(81, 86, 120); border-radius: 50px; padding: 1.33rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);\">\nrule_settings\n</span>\n</div>\n</div>\n</div>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "layout": "grid",
+        "show_image": true,
+        "image_height": "small",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_E6kq6A",
+    "main"
+  ]
+}

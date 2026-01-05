@@ -1,0 +1,6 @@
+{% if product.metafields.custom.shipping_carrier %}
+  <p class="shipping-carrier-wrapper flex-row__all-center gap-1r font-mplus h5-normal color__dark-blue-categry-hdr">
+    <span class="material-symbols-outlined notranslate color__dark-blue-txt">directions_boat</span>
+    Ships via: <span class="carrier-entity">{{ product.metafields.custom.shipping_carrier }}</span>
+  </p>
+{% endif %}

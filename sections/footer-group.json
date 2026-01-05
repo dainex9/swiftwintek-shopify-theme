@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "huge_sale_carousel_AMMMFd": {
+      "type": "huge-sale-carousel",
+      "settings": {}
+    },
+    "bestseller_carousel_rLf6Ly": {
+      "type": "bestseller-carousel",
+      "settings": {}
+    },
+    "trending_now_NQUqUN": {
+      "type": "trending-now",
+      "name": "Trending Now Carousel",
+      "settings": {
+        "heading": "Customer Favorites",
+        "collection_handle": "customer-top-finds-loved-by-our-shoppers"
+      }
+    },
+    "1745632760ad85c3cd": {
+      "type": "apps",
+      "blocks": {
+        "shop_shop_login_button_app_block_PEDcHp": {
+          "type": "shopify://apps/shop/blocks/shop-login-button-app-block/7cab7c4a-1dfc-4b7e-8e53-31f104f2fa4e",
+          "settings": {}
+        },
+        "trustedsite_engagement_FDQVJD": {
+          "type": "shopify://apps/trustedsite/blocks/engagement/3b73cc66-a9ae-4fcb-8ffb-743993d42e56",
+          "settings": {
+            "tm-type": "202",
+            "tm-size": "120"
+          }
+        },
+        "judge_me_reviews_testimonials_carousel_dR8dNV": {
+          "type": "shopify://apps/judge-me-reviews/blocks/testimonials_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "star_rating": "all",
+            "max_reviews": 20,
+            "quote_marks_size": "small",
+            "product_name_text_size": "small",
+            "verified_badge_style": "icon",
+            "card_height": "medium",
+            "text_size": "small",
+            "stars_size": "medium",
+            "arrows_position": "bottom",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "quote_marks_style": "serif",
+            "card_color": "#f9f9f9",
+            "stars_and_quote_marks_color": "#108474",
+            "text_color": "#000000",
+            "arrows_color": "#000000",
+            "show_border": false,
+            "border_color": "#108474",
+            "show_drop_shadow": false,
+            "transition_speed": 5,
+            "header_text": "Customers are saying",
+            "show_average_rating": true
+          }
+        }
+      },
+      "block_order": [
+        "shop_shop_login_button_app_block_PEDcHp",
+        "trustedsite_engagement_FDQVJD",
+        "judge_me_reviews_testimonials_carousel_dR8dNV"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "custom_liquid_EiDjCn": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div>\n<a href=\"https://swiftwintekstore.com/collections/nvme-by-crucial #shopify-section-sections--20319751897426__announcement_bar_dJJkcg\" rel=\"\" title=\"Shop Crucial NVMe now\">\n<img src=\"https://cdn.shopify.com/s/files/1/0795/4854/7410/files/Crucial_NVMe_Uncompromising_1920x120_Graphic_Template_EN.jpg?v=1710192842\" alt=\"Crucial uncompromising performance shop nvme now\" width=\"100%\" height=\"100%\" loading=\"lazy\">\n\n</a>\n</div>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 0
+      }
+    },
+    "footer_discount_banner_M7dWDM": {
+      "type": "footer-discount-banner",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "custom_css": [
+        ".footer-block__heading {font-family: \"Montserrat\", sans-serif; color: #2b3041; font-weight: 700; line-height: 1.6; font-size: 3rem; position: relative;}",
+        ".footer-block__heading strong {color: #0073ff;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "<strong>Subscribe </strong>to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "footer_content_extended_PiUNr8": {
+      "type": "footer-content-extended",
+      "settings": {}
+    },
+    "custom_liquid_Whh4ie": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"important-notice__alert-wrapper\" style=\"position: fixed; bottom: 0; left: 0; width: 100%; background-color: #fff4e5; color: #7a4f01; text-align: center; padding: 12px; font-size: 15px; font-weight: 500; border-top: 1px solid #f0d9b5; box-shadow: 0 -2px 8px rgba(0,0,0,0.05); z-index: 1;\">\n    ⚙️ <strong>Notice:</strong> Some collections may currently display with minor layout inconsistencies. Our team is actively refining these sections to ensure a smooth and consistent browsing experience. Thank you for your understanding.\n</div>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "huge_sale_carousel_AMMMFd",
+    "bestseller_carousel_rLf6Ly",
+    "trending_now_NQUqUN",
+    "1745632760ad85c3cd",
+    "custom_liquid_EiDjCn",
+    "footer_discount_banner_M7dWDM",
+    "footer",
+    "footer_content_extended_PiUNr8",
+    "custom_liquid_Whh4ie"
+  ]
+}

@@ -1,0 +1,46 @@
+<div id="recently-viewed-wrapper" class="flex-column__all-center gap-1r margin-bottom__thick">
+    <h2 class="font-contrail color__dark-blue-txt h1-normal">
+        Recently Viewed
+    </h2>
+    <div id="recently-viewed-grid" class="grid">
+        <!-- products rendered here -->
+    </div>
+</div>
+<script>
+  const container = document.getElementById("recently-viewed-grid");
+  const recent = JSON.parse(localStorage.getItem("recentlyViewed")) || [];
+  recent.forEach(handle => {
+    fetch(`/products/${handle}.js`)
+      .then(r => r.json())
+      .then(product => {
+        container.innerHTML += `
+          <div class="grid__item product-all recent-prod__card">
+            <a href="/products/${product.handle}" title="Learn more about ${product.title}" aria-label="Read more about ${product.title}">
+              <div class="image-zoom-wrapper" style="aspect-ratio: 1 / 1;">
+                    <img class="car-product-card__img"
+                        src="${product.images[0]}"
+                        alt="${product.title}"
+                        width="150px" height="${Math.round(150*1)}"
+                        loading="lazy" decoding="async"
+                        sizes="(max-width: 480px) 45vw, 300px"
+                        style="object-fit: contain;" 
+                    />
+                    <div class="cards-custom__badges">
+                      ${product.compare_at_price && product.compare_at_price > product.price ? `
+                      <p class="sale-product__badge mg__none">Sale</p> ` : `` }
+                    </div>
+            </div>
+            <p class="recent-prod__vendor h5-xtra" style="font-weight: 600;">${product.vendor}</p>
+            <p class="product-desc" style="margin-bottom: 2rem;">${product.title}</p>
+            <div class="price__container flex-column__all-center gap-1-5r margin-bottom__medium">
+            ${product.compare_at_price && product.compare_at_price > product.price ? `
+                <p class="list-price recent-prod__compare price-item--regular mg__none">MSRP: <s>$${(product.compare_at_price / 100).toFixed(2)} USD</s></p>
+                <p class="price recent-prod__price margin-top__none h3-normal font-wght__bold color__std-blue">$${(product.price / 100).toFixed(2)} USD</p>
+                <div class="discount-badge" style="border-radius: 8px;"><i class="fa-solid fa-tags" style="color: rgb(255, 70, 14);"></i> Now ${calculateDiscount(product.compare_at_price, product.price)}% Off!</div> ` :
+                ` <p class="price recent-prod__price margin-top__none h3-normal font-wght__bold color__std-blue">$${(product.price / 100).toFixed(2)} USD</p> ` }
+            </div>
+            </a>
+          </div>`;
+      });
+  });
+</script>

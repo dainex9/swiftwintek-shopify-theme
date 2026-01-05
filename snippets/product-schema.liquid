@@ -1,0 +1,55 @@
+{% comment %}
+  Dynamic JSON-LD Schema for Products (modular version)
+  Only includes fields if metafields are present
+  Place this snippet in "snippets/product-schema.liquid"
+  Then include via {% render 'product-schema' %} in your product template
+{% endcomment %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | strip_newlines | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ product.vendor | json }}
+  },
+  "sku": {{ product.sku | json }},
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": {{ product.price | money_without_currency | json }},
+    "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"
+  }{% assign props = '' %}
+  {% if product.metafields.custom.power_source or product.metafields.custom.resolution or product.metafields.custom.sensor_type or product.metafields.custom.warranty %},
+  "additionalProperty": [
+    {% if product.metafields.custom.power_source %}
+    {
+      "@type": "PropertyValue",
+      "name": "Power Source",
+      "value": {{ product.metafields.custom.power_source | json }}
+    }{% assign first = true %}{% endif %}
+    {% if product.metafields.custom.resolution %}{% if first %}, {% endif %}
+    {
+      "@type": "PropertyValue",
+      "name": "Resolution",
+      "value": {{ product.metafields.custom.resolution | json }}
+    }{% assign first = true %}{% endif %}
+    {% if product.metafields.custom.sensor_type %}{% if first %}, {% endif %}
+    {
+      "@type": "PropertyValue",
+      "name": "Sensor Type",
+      "value": {{ product.metafields.custom.sensor_type | json }}
+    }{% assign first = true %}{% endif %}
+    {% if product.metafields.custom.warranty %}{% if first %}, {% endif %}
+    {
+      "@type": "PropertyValue",
+      "name": "Warranty",
+      "value": {{ product.metafields.custom.warranty | json }}
+    }
+    {% endif %}
+  ]
+  {% endif %}
+}
+</script>

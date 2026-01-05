@@ -1,0 +1,169 @@
+<nav class="main-carousel__wrapper flex-row__all-center">
+<!-- Left Button (Desktop) -->
+  <button class="chevron btn-general desktop" onclick="cardSlide('trending-now-grid', 'left')" aria-label="Previous">
+    <span class="chevron-left material-symbols-outlined notranslate"> chevron_left </span>
+  </button>
+  <section id="trending-now-wrapper" class="flex-column__all-center margin-bottom__thick">
+    <h2 class="carousel-label font-contrail color__dark-blue-txt h1-normal">
+      {{ section.settings.heading }}
+    </h2>
+    <!-- Mobile Navigation Buttons -->
+      <div class="flex-row__all-center">
+        <button class="chevron btn-general mobile" onclick="cardSlide('trending-now-grid', 'left')" aria-label="Previous">
+          <span id="chevron-left__mobile" class="chevron-left material-symbols-outlined notranslate"> chevron_left </span>
+        </button>
+
+        <button class="chevron btn-general mobile" onclick="cardSlide('trending-now-grid', 'right')" aria-label="Next">
+          <span id="chevron-right__mobile" class="chevron-right material-symbols-outlined notranslate"> chevron_right </span>
+        </button>
+      </div>
+    <div id="trending-now-grid" class="inner-car__wrapper"></div>
+  </section>
+  <!-- Right Button (Desktop) -->
+  <button class="chevron btn-general desktop" onclick="cardSlide('trending-now-grid', 'right')" aria-label="Next">
+    <span class="chevron-right material-symbols-outlined notranslate"> chevron_right </span>
+  </button>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const trendingSection = document.getElementById("trending-now-wrapper");
+  let trendingLoaded = false;
+
+  /* Lazy load on scroll */
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries[0].isIntersecting || trendingLoaded) return;
+    trendingLoaded = true;
+    loadTrendingNow();
+  }, { threshold: 0.2 });
+
+  observer.observe(trendingSection);
+
+  /* Use your existing function */
+  async function loadTrendingNow() {
+    const collectionHandle = "{{ section.settings.collection_handle }}";
+    const collection = await fetchCollectionData(collectionHandle);
+    if (!collection?.products?.edges?.length) return;
+    renderTrending(collection.products.edges.map(e => e.node));
+  }
+
+  /* Render grid cards */
+  function renderTrending(products) {
+    const container = document.getElementById("trending-now-grid");
+
+    products.forEach(product => {
+      const img = product.images.edges[0]?.node.transformedSrc || "";
+      const firstVariant = product.variants.edges[0]?.node;
+      const compareAtPrice = firstVariant?.compareAtPrice?.amount ? parseFloat(firstVariant.compareAtPrice.amount) : null;
+      const currentPrice   = firstVariant?.price?.amount         ? parseFloat(firstVariant.price.amount) : null;
+      const isSale = compareAtPrice && currentPrice && compareAtPrice > currentPrice;
+
+      container.insertAdjacentHTML("beforeend", `
+        <div class="grid__item product-all trending-card">
+          <a href="/products/${product.handle}" title="${product.title}" aria-label="View ${product.title}">
+            <div class="image-zoom-wrapper" style="aspect-ratio:1/1;">
+              <img class="car-product-card__img"
+                src="${img}"
+                alt="${product.title}"
+                loading="lazy"
+                decoding="async"
+                width="200"
+                height="200"
+                sizes="(max-width:480px)45vw,300px"
+                style="object-fit:contain;"
+              />
+              ${renderBadges(product, isSale)}
+            </div>
+            <p class="recent-prod__vendor h5-xtra" style="font-weight:600;">${product.vendor}</p>
+            <p class="product-desc" style="margin-bottom:1.5rem;">${product.title}</p>
+            <div class="price__container flex-column__all-center gap-1-5r margin-bottom__medium">
+              ${calculatePrice(compareAtPrice, currentPrice)}
+            </div>
+          </a>
+        </div>
+      `);
+    });
+  }
+    /* Optional: Mouse drag support for desktop users */
+    const grid = document.getElementById("trending-now-grid");
+    let isDown = false, startX, scrollLeft;
+
+    grid.addEventListener("mousedown", e => {
+    isDown = true;
+    grid.classList.add("dragging");
+    startX = e.pageX - grid.offsetLeft;
+    scrollLeft = grid.scrollLeft;
+    });
+    grid.addEventListener("mouseleave", () => isDown = false);
+    grid.addEventListener("mouseup", () => isDown = false);
+    grid.addEventListener("mousemove", e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - grid.offsetLeft;
+    const walk = (x - startX) * 1.2;
+    grid.scrollLeft = scrollLeft - walk;
+    });
+
+  /* Badge logic */
+  function renderBadges(product, isSale) {
+    const badges = [];
+    const created = new Date(product.createdAt);
+    const daysOld = (Date.now() - created.getTime()) / (1000 * 60 * 60 * 24);
+    if (daysOld <= 14) badges.push(`<div class="badge badge--custom label-new abs-pos" style="z-index:1; top:0; left:0;">New</div>`);
+    if (product.tags.includes("bestseller")) badges.push(`<span class="badge badge--bestseller">Bestseller</span>`);
+    if (product.tags.includes("choice")) badges.push(`<span class="badge badge--limited">Choice</span>`);
+    if (isSale) badges.push(`<div><p class="sale-product__badge mg__none">Sale</p></div>`);
+    return badges.length ? `<div class="cards-custom__badges">${badges.join("")}</div>` : "";
+  }
+});
+</script>
+
+<style>
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.badge--new {
+  background: #00b6f5;
+  color: #fff;
+}
+.badge--bestseller {
+  background: #ff6b00;
+  color: #fff;
+}
+.badge--limited {
+  background: #d11a2a;
+  color: #fff;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Trending Now Carousel",
+  "tag": "section",
+  "class": "trending-now-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Customer-Top Finds"
+    },
+    {
+      "type": "text",
+      "id": "collection_handle",
+      "label": "Collection Handle",
+      "default": "customer-top-finds-loved-by-our-shoppers"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trending Now Carousel"
+    }
+  ]
+}
+{% endschema %}

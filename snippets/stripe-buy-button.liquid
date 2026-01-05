@@ -1,0 +1,18 @@
+<!-- snippets/stripe-buy-button.liquid -->
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+
+{% assign stripe_id = product.metafields.stripe.buy_button_id %}
+
+{% if stripe_id %}
+  <div class="stripe-buy-container flex-row__all-center width-full" style="margin-top: 28px;">
+    <stripe-buy-button
+      buy-button-id="{{ stripe_id }}"
+      publishable-key="pk_live_51SX5p9Bal8Nt2Ra3DWNDW7B7IJkV4pcAKWFFTh5z0UgCkeuBg4q4jy70lD5KbpKLrAbraXmSQCLt2pGp3fudMJ3k00CS4T0k6l"
+    >
+    </stripe-buy-button>
+  </div>
+{% else %}
+  <div class="stripe-fallback-message color__dark-blue-categry-hdr text-align-center" style="margin-top: 32px; font-size: 1.05rem;">
+    ⚠️ &nbsp;Stripe Checkout is currently unavailable for this item.
+  </div>
+{% endif %}

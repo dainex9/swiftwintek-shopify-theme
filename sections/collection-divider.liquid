@@ -1,0 +1,32 @@
+{% if template.name == 'collection' %}
+  <div class="page-width collection-curated-divider" aria-hidden="true"></div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collection divider",
+  "settings": [
+    {
+      "type": "range",
+      "id": "space_top",
+      "label": "Spacing above",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "space_bottom",
+      "label": "Spacing below",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 24
+    }
+  ],
+  "presets": [
+    { "name": "Collection divider" }
+  ]
+}
+{% endschema %}

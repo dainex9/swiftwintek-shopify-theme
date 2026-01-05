@@ -1,0 +1,42 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_E6kq6A": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "#container p {border-top: 0.5px solid #747f8a;}"
+      ],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div id=\"wintek-collection__header-label\" class=\"wrapper-base__template-column-center large-blue__border-top color__card-dimgrey-std std__box-shadow\" style=\"background: \n  linear-gradient(135deg, #fcfcfc 0%, #f1f1f1 60%, rgba(0, 182, 245, 0.1) 100%), \n  radial-gradient(circle at 50% 0%, rgba(0, 182, 245, 0.3) 35%, rgba(0, 182, 245, 0) 90%);\n  background-attachment: fixed;\">\n<h1 class=\"color__dark-blue-txt font-mserrat h1-normal margin-bottom__medium mg-top__thick-xplus\" style=\"font-weight: 700;\">\nNews, Updates & Releases\n</h1>\n<div class=\"wrapper-base__template-column-all-center margin-bottom__thick\">\n<h2 class=\"line-height__standard padding-left__thick padding-right__thick bg-transparent font-mplus color__dark-blue-txt margin-bottom__thickest h2-normal\" style=\"font-weight: 300;\">Your go-to source for the latest product updates, exciting upcoming releases, and <span class=\"md-blue__border-btm padding-bottom__mini\"><strong>&nbsp;All Things Tech</strong></span>—from our store and beyond.\n</h2>\n<div style=\"border-bottom: 3px solid lightgrey;\">\n<span class=\"margin-bottom__thick material-symbols-outlined notranslate color__dark-blue-txt\" style=\"font-size: 32px; border: 3px solid rgba(0, 115, 255,.8); border-radius: 50px; padding: 1.33rem;\">\ncontextual_token\n</span>\n</div>\n</div>\n</div>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 8
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "layout": "grid",
+        "show_image": true,
+        "image_height": "small",
+        "show_date": true,
+        "show_author": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_E6kq6A",
+    "main"
+  ]
+}

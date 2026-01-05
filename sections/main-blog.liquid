@@ -1,0 +1,160 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="main-blog page-width section-{{ section.id }}-padding">
+  <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    {{ blog.title | escape }}
+  </h1>
+
+  <!-- Tag Pills -->
+  <div id="tag-pills" class="margin-bottom__medium">
+    <button id="reset-filters" class="reset-filters-btn">Reset Filters</button>
+  </div>
+  <!-- NEW container for active filters pills -->
+  <div class="flex-row__just-start gap-2r thin-lgrey__border-top padding-top__micro padding-bottom__narrow">
+    <h2 class="font-mserrat color__dark-blue-categry-hdr font-wght__bold h4-normal">Filter:</h2>
+    <div id="active-filters"></div>
+  </div>
+  <!-- JS-rendered Articles -->
+  <div id="blog-articles" class="blog-articles-grid"></div>
+  <p id="no-articles-message" style="display: none; text-align: center; color: #777;" class="h4-normal mg-top__thicker-plus">
+    No Articles found
+  </p>
+
+  <!-- Hidden raw JSON data -->
+  <script id="blog-articles-data" type="application/json">
+[
+  {% for a in blog.articles %}
+    {
+      "id": {{ a.id | json }},
+      "title": {{ a.title | json }},
+      "handle": {{ a.handle | json }},
+      "url": {{ a.url | json }},
+      "author": {{ a.author | json }},
+      "published_at": {{ a.published_at | date: "%Y-%m-%d" | json }},
+      "tags": {{ a.tags | join: ", " | json }},
+      "summary_html": {{ a.excerpt | default: a.content | json }},
+      "image": {% if a.image %}{"src": {{ a.image | image_url: width: 1000 | json }}}{% else %}null{% endif %},
+      "read_time": {{ a.metafields.article.read_time.value | default: "" | json }}
+    }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
+</script>
+
+  <script>
+    const blogArticlesRaw = document.getElementById('blog-articles-data')?.textContent;
+    try {
+      const blogArticles = JSON.parse(blogArticlesRaw);
+      console.log('Parsed blog articles:', blogArticles);
+    } catch (e) {
+      console.error('Failed to parse blog articles JSON:', e);
+    }
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "t:sections.main-blog.settings.layout.options__1.label"
+        },
+        {
+          "value": "collage",
+          "label": "t:sections.main-blog.settings.layout.options__2.label"
+        }
+      ],
+      "default": "collage",
+      "label": "t:sections.main-blog.settings.layout.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_image.label"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.main-blog.settings.image_height.options__1.label"
+        },
+        {
+          "value": "small",
+          "label": "t:sections.main-blog.settings.image_height.options__2.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.main-blog.settings.image_height.options__3.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.main-blog.settings.image_height.options__4.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.main-blog.settings.image_height.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,77 @@
+<section class="affirm-section">
+  <div class="affirm-inner">
+    <span class="affirm-eyebrow font-roboto">
+      {{ section.settings.eyebrow }}
+    </span>
+
+    <h2 class="affirm-title h1-xtreme-small font-mserrat ltr-spacing__hdr">
+      {{ section.settings.heading }}
+    </h2>
+
+    <p class="affirm-description font-mplus color__dark-grey-txt line-height__std-extra ltr-spac__inline h3-normal">
+      {{ section.settings.description }}
+    </p>
+    <div class="flex-column__align-end gap-2r">     
+        <a href="{{ section.settings.link }}" class="affirm-cta font-roboto ltr-spac__inline--soft">
+      {{ section.settings.cta_label }}
+        </a>
+        {% if section.settings.disclaimer_text != blank %}
+        <div class="disclaimer-text h5-normal line-height__standard" style="opacity:  0.8; text-align: start;">
+            <p>
+                Rates from <span class="swtek-word--subscribe">0–36% APR</span>. Payment options through Affirm are subject to eligibility checks and approval.
+                <a href="/pages/faq#affirm-installments-faq" class="policy-links link-uline__focus" title="View Affirm Terms & Conditions" aria-label="View Affirm Terms & Conditions">See terms</a>.
+            </p>
+
+        </div>
+    {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Affirm payments",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Flexible payments"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Buy now. Pay over time with Affirm."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Split your purchase into simple monthly payments. Transparent terms. No hidden fees."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Learn more about Affirm"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "CTA link",
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer_text",
+      "label": "Disclaimer text",
+      "default": "<p>Rates from 0–36% APR. Payment options through Affirm are subject to eligibility checks and approval. Terms apply.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Affirm payments"
+    }
+  ]
+}
+{% endschema %}

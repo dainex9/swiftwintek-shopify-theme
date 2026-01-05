@@ -1,0 +1,404 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "discount_shipping_info_PUeDDX": {
+      "type": "discount-shipping-info",
+      "settings": {}
+    },
+    "refer_a_friend_subscribe_iULE8M": {
+      "type": "refer-a-friend-subscribe",
+      "settings": {}
+    },
+    "why_choose_us_zramL7": {
+      "type": "why-choose-us",
+      "name": "Why Choose Us",
+      "settings": {}
+    },
+    "multicolumn_yxbMXx": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_jphcaR": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/cooler-master-collection-hero-cpu-cooling.png",
+            "title": "Power That Stays Cold.",
+            "text": "<p>Stable airflow. Silent power. Built for long sessions.</p>",
+            "link_label": "View Details",
+            "link": "shopify://collections/category-pc-components-custom-parts-diy-computer-system-cooling-parts"
+          }
+        },
+        "column_zFPzfD": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/s-l500_10666183-53b3-4995-b8c3-c970d452f8a6.webp",
+            "title": "Built for Everyday Speed.",
+            "text": "<p>Clean design. Smooth performance. No distractions.</p>",
+            "link_label": "View Details",
+            "link": "shopify://products/samsung-galaxy-s22-5g-fully-unlocked-used-107143659858-1zejw"
+          }
+        },
+        "column_TDYB77": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/s-l500_a9dd69dc-4cf1-44ab-928f-cb9d5dc7ff0a.webp",
+            "title": "Powered by Sun.",
+            "text": "<p>Continuous power. No outlets. Set and forget.</p>",
+            "link_label": "View Details",
+            "link": "shopify://products/roku-solar-panel-usb-c-2025-for-battery-camera-battery-plus-only-diy-in-107143659858-oahyt"
+          }
+        }
+      },
+      "block_order": [
+        "column_jphcaR",
+        "column_zFPzfD",
+        "column_TDYB77"
+      ],
+      "custom_css": [],
+      "settings": {
+        "title": "This Week’s Picks",
+        "heading_size": "h0",
+        "image_width": "full",
+        "image_ratio": "square",
+        "button_label": "Feeling Lucky",
+        "button_link": "shopify://collections/1-year-warranty-collection-trusted-protected-products",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "color_scheme": "scheme-5",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "slideshow_dgNgCE": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_h6WNeC": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/geometric-blue-circles-symbolizing-bundle-deals.jpg",
+            "image_overlay_opacity": 10,
+            "heading": "Bundle More. Pay Less.",
+            "heading_size": "h1",
+            "subheading": "Smart tech bundles that save you more with every purchase.",
+            "button_label": "Shop Bundle Deals",
+            "link": "shopify://collections/product-bundles-buy-more-pay-less",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "bottom-left",
+            "text_alignment": "right",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "slide_YaLer9": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/cpu-air-cooler-hero.png",
+            "image_overlay_opacity": 30,
+            "heading": "Quiet, Reliable <strong>CPU Cooling</strong>",
+            "heading_size": "h1",
+            "subheading": "Compatible with Intel LGA 2066 • Quiet performance • 159 mm height",
+            "button_label": "View Product",
+            "link": "shopify://products/cooler-master-hyper-212-black-cpu-air-cooler-with-sickleflow-fan-107143659858-sipnj",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-right",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-1"
+          }
+        }
+      },
+      "block_order": [
+        "slide_h6WNeC",
+        "slide_YaLer9"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "numbers",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "image_behavior": "ambient",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "affirm_hero_jfr8xF": {
+      "type": "affirm-hero",
+      "name": "Affirm payments",
+      "settings": {
+        "eyebrow": "Flexible payments",
+        "heading": "Buy now. Pay over time with Affirm.",
+        "description": "Split your purchase into simple monthly payments. Transparent terms. No hidden fees.",
+        "cta_label": "Learn more about Affirm",
+        "link": "/pages/faq#affirm-installments-faq",
+        "disclaimer_text": "<p>Rates from 0–36% APR. Payment options through Affirm are subject to eligibility checks and approval. Terms apply.</p>"
+      }
+    },
+    "newsletter_bUUM7i": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_bQggDe": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Subscribe </strong> to our emails",
+            "heading_size": "h1"
+          }
+        },
+        "paragraph_33RVU7": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>"
+          }
+        },
+        "email_form_dVUCg4": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_bQggDe",
+        "paragraph_33RVU7",
+        "email_form_dVUCg4"
+      ],
+      "custom_css": [
+        ".inline-richtext {border: 1px solid #f3f3f3; border-radius: 13px; font-family: \"Montserrat\", Arial; font-size: 3.2rem; font-weight: 400; color: #2b3041; padding: 1.5rem; background: #fcfcfc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);}",
+        ".inline-richtext strong {color: #0073ff;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "new_arrivals_carousel_FPVtQH": {
+      "type": "new-arrivals-carousel",
+      "name": "New Arrivals Carousel",
+      "settings": {}
+    },
+    "custom_heading_NBHcCq": {
+      "type": "custom-heading",
+      "name": "Advanced Heading",
+      "settings": {
+        "html_heading": "<div class=\"section-header\">\n  <h2 class=\"carousel-heading font-mserrat\" style=\"font-size: 5rem;\">\n    Discover Our <span class=\"color__blue\">Most</span> Beloved \n    <span class=\"collections-text swtek-word\" style=\"z-index: -1;\">Collections</span>\n  </h2>\n  <div class=\"section-underline\"></div>\n</div>",
+        "show_underline": true,
+        "text_alignment": "center",
+        "color_scheme": "",
+        "padding_top": 88,
+        "padding_bottom": 80,
+        "full_width": false
+      }
+    },
+    "featured_collection_6t3rwh": {
+      "type": "featured-collection",
+      "custom_css": [],
+      "settings": {
+        "collection": "category-pc-components-custom-parts-diy-computer-system-cooling-parts",
+        "products_to_show": 24,
+        "title": "System Cooling Essentials",
+        "heading_size": "h1",
+        "description": "<p><br/>Quiet, reliable cooling parts to keep your PC running smoothly.<br/><br/></p>",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 6,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_b3GMVj": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "customer-top-finds-loved-by-our-shoppers",
+        "products_to_show": 24,
+        "title": "Favorites & Trending",
+        "heading_size": "h1",
+        "description": "<h4>Shop what everyone’s loving right now.</h4>",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 6,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_cRrMLj": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "discover-swtek-parts™",
+        "products_to_show": 18,
+        "title": "Swtek Parts™ Collection",
+        "heading_size": "h1",
+        "description": "<p>High-quality parts selected for <strong>durability</strong>, compatibility, and efficient <strong>builds</strong>.</p>",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 6,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_PYLdRy": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "editors-choice",
+        "products_to_show": 18,
+        "title": "Curated Exclusives Just for You",
+        "heading_size": "h1",
+        "description": "<h4>Discover our <strong>top handpicked products</strong>—fan favorites, limited editions, and <strong>staff-approved</strong> bestsellers you won’t find anywhere else.</h4>",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 6,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_MQqj8A": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "discover-gaming",
+        "products_to_show": 24,
+        "title": "Level up your PC here",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 6,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_3qhtaw": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "discover-swtek-essentials™",
+        "products_to_show": 24,
+        "title": "Essentials for Every Day.",
+        "heading_size": "h1",
+        "description": "<h4>From home to office — discover Swtek’s <strong>simple</strong>, quality <strong>basics </strong>that just work.</h4>",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 6,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "scheme-3",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "quick_add": "bulk",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_liquid_zKbYd6": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "h1 {font-family: \"Montserrat\"; font-weight: 300;}"
+      ],
+      "settings": {
+        "custom_liquid": "<div class=\"std__box-shadow wrapper-base__template-column-all-center color__card-dimgrey-std thin-lgrey__border-top\">\n<h1 class=\"margin-top__narrow margin-bottom__narrow font-size__xlarge color__dark-blue-txt\"> More to\n<span class=\"font-fugaz color__blue std__txt-shadow\">Discover!</span>\n</h1>\n</div>",
+        "color_scheme": "scheme-3",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    }
+  },
+  "order": [
+    "discount_shipping_info_PUeDDX",
+    "refer_a_friend_subscribe_iULE8M",
+    "why_choose_us_zramL7",
+    "multicolumn_yxbMXx",
+    "slideshow_dgNgCE",
+    "affirm_hero_jfr8xF",
+    "newsletter_bUUM7i",
+    "new_arrivals_carousel_FPVtQH",
+    "custom_heading_NBHcCq",
+    "featured_collection_6t3rwh",
+    "featured_collection_b3GMVj",
+    "featured_collection_cRrMLj",
+    "featured_collection_PYLdRy",
+    "featured_collection_MQqj8A",
+    "featured_collection_3qhtaw",
+    "custom_liquid_zKbYd6"
+  ]
+}

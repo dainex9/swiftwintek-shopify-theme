@@ -1,0 +1,376 @@
+{% comment %}
+  Section: Policy ToC + Content
+  - Renders policy content (select in settings) and auto-generates a Table of Contents.
+  - Works on /policies/* or any normal page template.
+{% endcomment %}
+
+{% assign sec_id = section.id %}
+{% assign source = section.settings.source %}
+
+{% comment %} Resolve content based on source setting {% endcomment %}
+{% capture policy_html %}
+  {% case source %}
+    {% when 'page' %}
+      {{ page.content }}
+    {% when 'privacy' %}
+      {{ shop.privacy_policy }}
+    {% when 'refund' %}
+      {{ shop.refund_policy }}
+    {% when 'terms' %}
+      {{ shop.terms_of_service }}
+    {% when 'shipping' %}
+      {{ shop.shipping_policy }}
+    {% when 'legal' %}
+      {{ shop.legal_notice }}
+    {% when 'custom' %}
+      {{ section.settings.custom_richtext }}
+  {% endcase %}
+{% endcapture %}
+
+<div class="policy-wrap-{{ sec_id }}">
+  <div class="policy-page-{{ sec_id }}{% if section.settings.constrain_width %} container{% endif %}">
+    <nav class="policy-toc-{{ sec_id }} toc-nav" aria-label="On this page">
+      <div class="policy-toc__header-{{ sec_id }}">
+        <h3 class="policy-toc__title-{{ sec_id }} {% if section.settings.use_contrail %} font-contrail{% endif %}">
+          {{ section.settings.toc_title | default: 'On this page' }}
+        </h3>
+        <button class="policy-toc__toggle-{{ sec_id }}" aria-expanded="true" aria-controls="policy-toc-list-{{ sec_id }}">
+          Menu
+        </button>
+      </div>
+      <ul id="policy-toc-list-{{ sec_id }}" class="policy-toc__list-{{ sec_id }}"></ul>
+    </nav>
+
+    <article id="policy-content-{{ sec_id }}" class="policy-content-{{ sec_id }} rte">
+      {{ policy_html }}
+    </article>
+
+    {% if section.settings.show_back_to_top %}
+      <button class="back-to-top-{{ sec_id }}" aria-label="Back to top">↑</button>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .policy-wrap-{{ sec_id }} .font-contrail { font-family: "Contrail One", system-ui, sans-serif; font-style: normal; }
+  .policy-page-{{ sec_id }} {
+    display: flex; gap: 3rem;
+    {% if section.settings.constrain_width %}max-width: 1200px; margin: 0 auto;{% endif %}
+  }
+  .policy-content-{{ sec_id }} { flex: 1; min-width: 0; }
+  .policy-content-{{ sec_id }} h2,
+  .policy-content-{{ sec_id }} h3,
+  .policy-content-{{ sec_id }} h4 { scroll-margin-top: {{ section.settings.scroll_margin | default: 100 }}px; }
+
+  .policy-toc-{{ sec_id }} {
+    margin-top: 20rem;
+    flex: 0 0 {{ section.settings.sidebar_width | default: 260 }}px;
+    position: sticky; top: {{ section.settings.sticky_offset | default: 32 }}px; align-self: flex-start;
+    background: {% if section.settings.soft_background %}linear-gradient(180deg,#fcfcfc 0%,rgb(252, 252, 252) 100%){% else %}#fff{% endif %};
+    border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 1.9rem 1.2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    font-family: "Montserrat", system-ui, sans-serif;
+    {% if section.settings.show_watermark %}
+      position: sticky; overflow: hidden;
+    {% endif %}
+  }
+
+  {% if section.settings.show_watermark %}
+  .policy-toc-{{ sec_id }}::after{
+    content:"?"; position:absolute; right:-8px; top:-12px; opacity:.02;
+    font-family:"Contrail One"; font-size:100px; transform:rotate(-14deg);
+    pointer-events:none; line-height:1;
+  }
+  {% endif %}
+  .policy-toc__header-{{ sec_id }} { display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding-left: .9rem; margin: 0 0 1rem; }
+  .policy-toc__title-{{ sec_id }} { margin:.1rem .4rem .4rem; font-size: 2.15rem; letter-spacing:.2px; color: #2b3041; }
+  .policy-toc__toggle-{{ sec_id }} {
+    display:none; border:1px solid #d1d5db; background:#fff; border-radius:999px;
+    padding:.25rem .6rem; font-size:.85rem; cursor:pointer;
+  }
+  .policy-toc__toggle-{{ sec_id }}[aria-expanded="false"]::after { content:" ▾"; }
+  .policy-toc__toggle-{{ sec_id }}[aria-expanded="true"]::after { content:" ▴"; }
+
+  .policy-toc__list-{{ sec_id }},
+  .policy-toc__sub-{{ sec_id }} { list-style:none; margin:0; padding:0; }
+  .policy-toc-{{ sec_id }} li { margin:2px 0; }
+  .policy-toc-{{ sec_id }} a {
+    display:block; padding:.38rem .4rem; border-radius:8px; text-decoration:none;
+    color:#374151; line-height:1.5; font-size: 14px !important; transition: color .2s ease;
+  }
+  .policy-toc-{{ sec_id }} a:hover { color: {{ section.settings.accent | default: '#00b6f5' }}; }
+  .policy-toc-{{ sec_id }} a.is-active { font-weight:600; color: {{ section.settings.accent | default: '#00b6f5' }}; text-shadow:0 0 0 currentColor; }
+  .policy-toc-{{ sec_id }} li.toc-depth-3 a { padding-left:1.25rem; font-size:.95rem; opacity:.92; }
+  .policy-toc-{{ sec_id }} li.toc-depth-4 a { padding-left:1.75rem; font-size:.92rem; opacity:.88; }
+
+  {% if section.settings.show_back_to_top %}
+  .back-to-top-{{ sec_id }} {
+    position:fixed; right:1rem; bottom:1rem; z-index:50;
+    opacity:0; pointer-events:none; transform:translateY(8px);
+    transition:opacity .2s, transform .2s;
+    border:none; border-radius:999px; padding:.6rem .8rem;
+    background: {{ section.settings.accent | default: '#00b6f5' }}; color:#fff; font-weight:600; box-shadow:0 8px 20px rgba(0,0,0,.18);
+  }
+  .back-to-top-{{ sec_id }}.is-visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+  .back-to-top-{{ sec_id }}:active { transform:translateY(1px); }
+  {% endif %}
+
+  @media (max-width: 900px) {
+    .policy-page-{{ sec_id }} { flex-direction:column; }
+    .policy-toc-{{ sec_id }} { position:static; top:auto; }
+    .policy-toc__toggle-{{ sec_id }} { display:inline-block; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top-{{ sec_id }}, .policy-toc-{{ sec_id }} a { transition: none; }
+  }
+</style>
+
+<script>
+  (function() {
+    var secId = {{ sec_id | json }};
+    var content = document.getElementById('policy-content-' + secId);
+    var tocList = document.getElementById('policy-toc-list-' + secId);
+    var tocToggle = document.querySelector('.policy-toc__toggle-' + secId);
+    var backTop = document.querySelector('.back-to-top-' + secId);
+
+    if (!content || !tocList) return;
+
+    // Settings from schema
+    var includeH3 = {{ section.settings.include_h3 | json }};
+    var includeH4 = {{ section.settings.include_h4 | json }};
+    var collapseMobile = {{ section.settings.collapse_mobile | json }};
+    var thresholdPx = 400; // back-to-top reveal
+
+    // Collect headings
+    var selector = ['h2'];
+    if (includeH3) selector.push('h3');
+    if (includeH4) selector.push('h4');
+    var headings = Array.prototype.slice.call(content.querySelectorAll(selector.join(', ')))
+      .filter(function(h){ return h.textContent.trim().length > 0; });
+
+    if (!headings.length) return;
+
+    // Slugify + unique IDs
+    function slugify(str) {
+      return str.toLowerCase().trim()
+        .replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
+    }
+
+    headings.forEach(function(h, i) {
+      if (!h.id) {
+        var base = slugify(h.textContent) || ('section-' + (i+1));
+        var id = base, n = 2;
+        while (document.getElementById(id)) { id = base + '-' + (n++); }
+        h.id = id;
+      }
+    });
+
+    // Build nested list
+    var currentUl = tocList;
+    var lastDepth = 2;
+
+    headings.forEach(function(h) {
+      var depth = Number(h.tagName.slice(1)); // 2/3/4
+      if (depth > lastDepth) {
+        var sub = document.createElement('ul');
+        sub.className = 'policy-toc__sub-' + secId;
+        (currentUl.lastElementChild || currentUl).appendChild(sub);
+        currentUl = sub;
+      } else if (depth < lastDepth) {
+        currentUl = currentUl.parentElement.closest('ul') || tocList;
+      }
+      lastDepth = depth;
+
+      var li = document.createElement('li');
+      li.className = 'toc-depth-' + depth;
+
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent.trim();
+
+      li.appendChild(a);
+      currentUl.appendChild(li);
+    });
+
+    // Smooth scroll
+    tocList.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.pushState(null, '', '#' + id);
+    });
+
+    // Active highlight
+    var links = Array.prototype.slice.call(tocList.querySelectorAll('a'));
+    var linkById = new Map(headings.map(function(h){
+      return [h.id, links.find(function(a){ return a.getAttribute('href') === '#' + h.id; })];
+    }));
+
+    var observer = new IntersectionObserver(function(entries) {
+      var visible = entries.filter(function(en){ return en.isIntersecting; })
+                           .sort(function(a,b){ return a.boundingClientRect.top - b.boundingClientRect.top; })[0];
+      if (!visible) return;
+      var id = visible.target.id;
+      links.forEach(function(a){ a.classList.remove('is-active'); });
+      var active = linkById.get(id);
+      if (active) active.classList.add('is-active');
+    }, { rootMargin: '-120px 0px -70% 0px', threshold: [0, 1] });
+
+    headings.forEach(function(h){ observer.observe(h); });
+    if (location.hash) {
+      var initial = linkById.get(location.hash.slice(1));
+      if (initial) initial.classList.add('is-active');
+    }
+
+    // Mobile collapse
+    function isMobile(){ return matchMedia('(max-width: 900px)').matches; }
+    function setCollapsed(collapsed){
+      tocList.hidden = collapsed;
+      if (tocToggle) tocToggle.setAttribute('aria-expanded', String(!collapsed));
+    }
+    if (tocToggle) {
+      setCollapsed(isMobile() ? collapseMobile : false);
+      tocToggle.addEventListener('click', function(){ setCollapsed(tocList.hidden ? false : true); });
+      matchMedia('(max-width: 900px)').addEventListener('change', function(){ setCollapsed(isMobile() ? collapseMobile : false); });
+    }
+
+    // Back to top
+    if (backTop) {
+      function onScroll(){
+        if (window.scrollY > thresholdPx) backTop.classList.add('is-visible');
+        else backTop.classList.remove('is-visible');
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      backTop.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Policy content + ToC",
+  "settings": [
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Content source",
+      "default": "page",
+      "options": [
+        { "value": "page", "label": "Current page content" },
+        { "value": "privacy", "label": "Privacy policy (shop.privacy_policy)" },
+        { "value": "refund", "label": "Refund policy (shop.refund_policy)" },
+        { "value": "terms", "label": "Terms of Service (shop.terms_of_service)" },
+        { "value": "shipping", "label": "Shipping policy (shop.shipping_policy)" },
+        { "value": "legal", "label": "Legal notice (shop.legal_notice)" },
+        { "value": "custom", "label": "Custom rich text (below)" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "custom_richtext",
+      "label": "Custom content (only used if source = Custom)",
+      "default": "<p>Add your policy content here…</p>"
+    },
+    {
+      "type": "text",
+      "id": "toc_title",
+      "label": "ToC title",
+      "default": "On this page"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_contrail",
+      "label": "Use Contrail One for title",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "accent",
+      "label": "Accent color",
+      "default": "#00b6f5"
+    },
+    {
+      "type": "range",
+      "id": "sidebar_width",
+      "label": "Sidebar width (px)",
+      "default": 260,
+      "min": 200,
+      "max": 340,
+      "step": 10
+    },
+    {
+      "type": "range",
+      "id": "sticky_offset",
+      "label": "Sticky top offset (px)",
+      "default": 32,
+      "min": 0,
+      "max": 160,
+      "step": 4
+    },
+    {
+      "type": "range",
+      "id": "scroll_margin",
+      "label": "Heading scroll margin (px)",
+      "default": 100,
+      "min": 0,
+      "max": 200,
+      "step": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "include_h3",
+      "label": "Include H3 in ToC",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "include_h4",
+      "label": "Include H4 in ToC",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "collapse_mobile",
+      "label": "Collapse ToC by default on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_to_top",
+      "label": "Show back-to-top button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "soft_background",
+      "label": "Use soft gradient background",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_watermark",
+      "label": "Subtle Contrail \"?\" watermark",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "constrain_width",
+      "label": "Constrain to 1200px container",
+      "default": true
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Policy content + ToC"
+    }
+  ]
+}
+{% endschema %}

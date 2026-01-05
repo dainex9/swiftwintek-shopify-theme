@@ -1,0 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "custom_css": [
+        "strong {font-family: \"Contrail One\", sans-serif; border-bottom: 2px solid #f3f3f3;}"
+      ],
+      "settings": {
+        "title": "Discover <strong>all </strong>our Selections",
+        "sort": "alphabetical",
+        "image_ratio": "square",
+        "columns_desktop": 6,
+        "columns_mobile": "2"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

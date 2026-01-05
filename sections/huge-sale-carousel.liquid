@@ -1,0 +1,44 @@
+<nav class="main-carousel__wrapper wrapper-base__template-center medium-blue__border-top std__box-shadow--reverse">
+  <button class="chevron btn-general desktop" onclick="cardSlide('bargain-prod-container', 'left')" aria-label="Previous">
+    <span class="chevron-left material-symbols-outlined notranslate" id="new-arrival-chevron__left">chevron_left</span>
+  </button>
+
+  <section class="wrapper-base__template-column-all-center overflow__hidden">
+    <section class="carousel-navigate__mobile">
+      <h2 class="peralta-regular carousel-label">Huge Sale</h2>
+      <div class="wrapper-base__template-center">
+        <button class="chevron btn-general mobile" onclick="cardSlide('bargain-prod-container', 'left')" aria-label="Previous">
+          <span id="chevron-left__mobile" class="chevron-left material-symbols-outlined notranslate">chevron_left</span>
+        </button>
+
+        <button class="chevron btn-general mobile" onclick="cardSlide('bargain-prod-container', 'right')" aria-label="Next">
+          <span id="chevron-right__mobile" class="chevron-right material-symbols-outlined notranslate">chevron_right</span>
+        </button>
+      </div>
+    </section>
+
+    <ul class="carousel-inner__wrapper wrapper-base__template-align-start car-inner-wrapper__border-top inner-car__wrapper" id="bargain-prod-container" aria-live="polite">
+      <!-- Carousel items dynamically populated -->
+    </ul>
+
+    <a class="car-see-all__btn button button-round" href="/collections/winteks-huge-sale" title="Discover products on Huge Sale" aria-label="Discover all products on Huge Sale">Discover All</a>
+  </section>
+
+  <button class="chevron btn-general desktop" onclick="cardSlide('bargain-prod-container', 'right')" aria-label="Next">
+    <span class="chevron-right material-symbols-outlined notranslate" id="new-arrival-chevron__right">chevron_right</span>
+  </button>
+</nav>
+
+{% schema %}
+{
+  "name": "Huge Sale Carousel",
+  "tag": "section",
+  "class": "huge-sale-carousel",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Huge Sale Carousel"
+    }
+  ]
+}
+{% endschema %}

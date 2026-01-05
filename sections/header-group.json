@@ -1,0 +1,302 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "custom_css": [
+        "p {font-family: \"M Plus 1\", Arial; font-size: 12px; font-weight: 300; color: #393f52;}"
+      ],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-1",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "smile-home",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 12,
+        "padding_bottom": 12
+      }
+    },
+    "mega_menu_collections_6KmGM4": {
+      "type": "mega-menu-collections",
+      "name": "Mega Menu Collections",
+      "settings": {}
+    },
+    "main_carousel_YJ6X6c": {
+      "type": "main-carousel",
+      "settings": {}
+    },
+    "announcement_bar_nkCqQi": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_k6cgqh": {
+          "type": "announcement",
+          "settings": {
+            "text": "Flexible payments with Affirm – choose monthly at checkout!",
+            "link": ""
+          }
+        },
+        "announcement_mnyKpB": {
+          "type": "announcement",
+          "settings": {
+            "text": "New name, same great quality — now at swtek.io!",
+            "link": "https://swtek.io"
+          }
+        },
+        "announcement_bDRHNP": {
+          "type": "announcement",
+          "settings": {
+            "text": "3D Secure checkout enabled – extra protection for every payment.",
+            "link": ""
+          }
+        },
+        "announcement_jUqAca": {
+          "type": "announcement",
+          "settings": {
+            "text": "Discover what’s new — shop now.",
+            "link": "shopify://collections/new-arrivals"
+          }
+        },
+        "announcement_rYcHd7": {
+          "type": "announcement",
+          "settings": {
+            "text": "Now shopping made easier — find us on the Shop App!",
+            "link": "https://play.google.com/store/apps/details?id=com.shopify.arrive&amp;pli=1"
+          }
+        },
+        "announcement_WawCX3": {
+          "type": "announcement",
+          "settings": {
+            "text": "Top-rated and loved by customers — shop our favorites.",
+            "link": "shopify://collections/bestsellers-customers-choice"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_k6cgqh",
+        "announcement_mnyKpB",
+        "announcement_bDRHNP",
+        "announcement_jUqAca",
+        "announcement_rYcHd7",
+        "announcement_WawCX3"
+      ],
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "alt_nav_sidebar_J7yPKL": {
+      "type": "alt-nav-sidebar",
+      "settings": {}
+    },
+    "swtek_banner_JaafNR": {
+      "type": "swtek-banner",
+      "name": "Swtek Promo Banner",
+      "settings": {
+        "heading": "Discover the Power of Swtek Gear™ and Essentials™",
+        "subtext": "Explore premium tech setups, office gear, and performance accessories.",
+        "link": "/collections/discover-swtek-essentials™",
+        "banner_image": "shopify://shop_images/Swtek_product_lineup_banner_wide.png"
+      }
+    },
+    "featured_products_carousel_V8KMrp": {
+      "type": "featured-products-carousel",
+      "settings": {}
+    },
+    "track_order_section_imKnmL": {
+      "type": "track-order-section",
+      "name": "Track Order Section",
+      "settings": {}
+    },
+    "1745354613f1f82fe4": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_all_reviews_text_r7nfhh": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "judge_me_reviews_featured_carousel_LxkYAD": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_all_reviews_text_r7nfhh",
+        "judge_me_reviews_featured_carousel_LxkYAD"
+      ],
+      "custom_css": [],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "announcement_bar_E6VNaJ": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_afVDjM": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
+        "announcement_XkkUti": {
+          "type": "announcement",
+          "settings": {
+            "text": "Start Earning Today!",
+            "link": ""
+          }
+        },
+        "announcement_BJEmPg": {
+          "type": "announcement",
+          "settings": {
+            "text": "Season Exclusive – Earn More on Signup! Get up to 50 Extra Eggs for a Limited Time.",
+            "link": "#smile-home"
+          }
+        },
+        "announcement_bCiXB3": {
+          "type": "announcement",
+          "settings": {
+            "text": "Looking to spend your eggs? Redeem 250 for 15% off your order.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_afVDjM",
+        "announcement_XkkUti",
+        "announcement_BJEmPg",
+        "announcement_bCiXB3"
+      ],
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-83569d9d-9fd1-4db5-9bf0-d60fe8ea00db",
+        "show_line_separator": true,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "announcement_bar_QNbKek": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_bUH8My": {
+          "type": "announcement",
+          "settings": {
+            "text": "Save Big This November — Up to 50% Off!",
+            "link": "shopify://collections/autumn-sale"
+          }
+        },
+        "announcement_iwH6Ch": {
+          "type": "announcement",
+          "settings": {
+            "text": "Flexible payments with Affirm – choose monthly at checkout!",
+            "link": ""
+          }
+        },
+        "announcement_mXztWL": {
+          "type": "announcement",
+          "settings": {
+            "text": "New name, same great quality — now at swtek.io!",
+            "link": "https://swtek.io"
+          }
+        },
+        "announcement_pFBYyh": {
+          "type": "announcement",
+          "settings": {
+            "text": "3D Secure checkout enabled – extra protection for every payment.",
+            "link": ""
+          }
+        },
+        "announcement_qpeWBz": {
+          "type": "announcement",
+          "settings": {
+            "text": "Discover what’s new — shop now.",
+            "link": "shopify://collections/new-arrivals"
+          }
+        },
+        "announcement_q6cCcQ": {
+          "type": "announcement",
+          "settings": {
+            "text": "Now shopping made easier — find us on the Shop App!",
+            "link": "https://play.google.com/store/apps/details?id=com.shopify.arrive&amp;pli=1"
+          }
+        },
+        "announcement_UwRHeK": {
+          "type": "announcement",
+          "settings": {
+            "text": "Top-rated and loved by customers — shop our favorites.",
+            "link": "shopify://collections/bestsellers-customers-choice"
+          }
+        }
+      },
+      "block_order": [
+        "announcement_bUH8My",
+        "announcement_iwH6Ch",
+        "announcement_mXztWL",
+        "announcement_pFBYyh",
+        "announcement_qpeWBz",
+        "announcement_q6cCcQ",
+        "announcement_UwRHeK"
+      ],
+      "settings": {
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "color_scheme": "",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "mega_menu_collections_6KmGM4",
+    "main_carousel_YJ6X6c",
+    "announcement_bar_nkCqQi",
+    "alt_nav_sidebar_J7yPKL",
+    "swtek_banner_JaafNR",
+    "featured_products_carousel_V8KMrp",
+    "track_order_section_imKnmL",
+    "1745354613f1f82fe4",
+    "announcement_bar_E6VNaJ",
+    "announcement_bar_QNbKek"
+  ]
+}

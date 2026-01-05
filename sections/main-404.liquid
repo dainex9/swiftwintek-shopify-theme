@@ -1,0 +1,23 @@
+<style type="text/css">
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+</style>
+
+<div class="template-404 page-width page-margin center">
+  <p class="font-mserrat h1-normal font-wght__bold-regular" style="color: red;">
+    {{ 'templates.404.subtext' | t }}
+  </p>
+  <h1 class="title font-mplus font-wght__bold-regular color__dark-blue-categry-hdr h1-normal margin-bottom__thicker">
+    {{ 'templates.404.title' | t }}
+  </h1>
+  <a href="{{ routes.all_products_collection_url }}" class="font-mplus font-wght__bold color__dark-blue-categry-hdr h3-normal" style="border: 3px solid #0073ff; padding: .7rem 1.6rem; border-radius: 30px;">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</div>

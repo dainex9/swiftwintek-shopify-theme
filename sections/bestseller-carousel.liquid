@@ -1,0 +1,48 @@
+<nav id="bestseller-carousel__outer-wrapper" class="main-carousel__wrapper wrapper-base__template-center">
+  <button class="chevron btn-general desktop" onclick="cardSlide('bestseller-prod-container', 'left')" aria-label="Previous">
+    <span class="chevron-left material-symbols-outlined notranslate">chevron_left</span>
+  </button>
+
+  <section class="wrapper-base__template-column-all-center overflow__hidden">
+    <section class="carousel-navigate__mobile">
+      <h2 class="peralta-regular carousel-label wrapper-base__template-center" id="bestseller-products-label">
+        <span class="margin-right__mini">Trending</span> 
+        <span>Now</span>
+      </h2>
+
+      <div class="wrapper-base__template-center">
+        <button class="chevron btn-general mobile" onclick="cardSlide('bestseller-prod-container', 'left')" aria-label="Previous">
+          <span id="chevron-left__mobile" class="chevron-left material-symbols-outlined notranslate">chevron_left</span>
+        </button>
+
+        <button class="chevron btn-general mobile" onclick="cardSlide('bestseller-prod-container', 'right')" aria-label="Next">
+          <span id="chevron-right__mobile" class="chevron-right material-symbols-outlined notranslate">chevron_right</span>
+        </button>
+      </div>
+    </section>
+
+    <ul class="carousel-inner__wrapper wrapper-base__template-align-start inner-car__wrapper" id="bestseller-prod-container" aria-live="polite">
+      <!-- Bestseller items dynamically populated -->
+    </ul>
+
+    <a class="ambient-special__btn see-all__btn" href="/collections/bestsellers-customers-choice" title="Shop Bestsellers & Customer Favorites" aria-label="Explore our bestselling products and customer favorites">Discover All</a>
+  </section>
+
+  <button class="chevron btn-general desktop" onclick="cardSlide('bestseller-prod-container', 'right')" aria-label="Next">
+    <span class="chevron-right material-symbols-outlined notranslate">chevron_right</span>
+  </button>
+</nav>
+
+{% schema %}
+{
+  "name": "Bestseller Carousel",
+  "tag": "section",
+  "class": "bestseller-carousel",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Bestseller Carousel"
+    }
+  ]
+}
+{% endschema %}
