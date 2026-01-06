@@ -1,0 +1,3 @@
+*.liquid text eol=lf
+*.css text eol=lf
+*.json text eol=lf
