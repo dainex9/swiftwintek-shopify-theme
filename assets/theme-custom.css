@@ -2268,7 +2268,7 @@ button.drawer__close:hover .svg-wrapper svg {
 .article-card__read-more {
   font-size: 1.7rem !important;
 }
-body .grid__item:not(.slideshow__slide) {
+body .grid__item:not(.slideshow__slide):not(.product-all) {
   width: fit-content !important;
 }
 
