@@ -1,3 +1,50 @@
+/* Apply this to the element that has the background + shadow */
+.slant-right {
+  --slant: 18px;              /* size of the slant */
+  --bg: #fff;                 /* background color of the card */
+
+  position: relative;
+  display: inline-flex;       /* or inline-block */
+  align-items: center;
+
+  background: var(--bg);
+  overflow: visible;          /* keep shadow visible */
+  padding-right: calc(1.5rem + var(--slant)); /* room for the slant */
+}
+
+/* Creates the diagonal "cut" by covering the corner with page background */
+.slant-right::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: var(--slant);
+  height: 100%;
+
+  background: var(--page-bg, transparent);
+  transform: skewX(-20deg);
+  transform-origin: top right;
+
+  pointer-events: none;
+}
+
+.track-title--mplus {
+  line-height: 1;
+  transform: translateY(-2.75px);
+}
+.arrow-slide-right {
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-inline:hover .arrow-slide-right {
+  transform: translateX(3px);
+  opacity: 0.9;
+}
+.btn-inline .material-symbols-outlined {
+  vertical-align: middle;
+}
 /* - DISCLAIMERS AND LEGAL - */
 .material-symbols-outlined.external-link-icon {
   font-size: 16px;
@@ -2221,6 +2268,10 @@ button.drawer__close:hover .svg-wrapper svg {
 .article-card__read-more {
   font-size: 1.7rem !important;
 }
+body .grid__item:not(.slideshow__slide) {
+  width: fit-content !important;
+}
+
 .wintek-related-grid__item:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   .related-article__chevron {
@@ -2357,6 +2408,9 @@ h2[id^="Comments-"]::before {
 }
 .gap-8r {
   gap: 8rem;
+}
+.gap-7r {
+  gap: 7rem;
 }
 .gap-6r {
   gap: 6rem;
@@ -7136,6 +7190,9 @@ body .mg__none {
 }
 .box__padding-none {
   padding: 0;
+}
+.swtek-box__padding {
+  padding: 5px;
 }
 .box__padding-micro {
   padding: 0.5rem;

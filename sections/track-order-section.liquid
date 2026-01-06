@@ -3,25 +3,29 @@
   Displays a tracking banner, description, and CTA to /pages/track-your-order
 {% endcomment %}
 
-<div style="max-width: 960px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; font-family: 'Montserrat', sans-serif;">
+<div class="flex-row__all-center gap-7r" style="max-width: 960px; margin: 0 auto; padding: 4rem 1.5rem;">
+  <div class="font-mplus flex-col__all-center gap-2r">
+      <h2 class="slant-right std__box-shadow h1-xtra-plus slanted-edge-right font-wght__bold-regular font-mplus color__dark-blue-txt flex-row__all-center swtek-box__padding color__card-dimgrey-std mg__none" style="margin-bottom: 1rem; --page-bg:#f3f3f3;"><span class="track-title--mplus ltr-spac__inline--soft">Track Your Order</span></h2>
+    <p class="h4-xtra font-mplus color__dark-blue-categry-hdr ltr-spacing__inline line-height__lg-extra font-wght__thin-plus" style="max-width: 600px; margin: 4rem auto;">
+      Already placed an order? You can check your delivery status at <strong>any time</strong> using your tracking number. <strong>Fast</strong>, <strong>easy</strong>, <strong>and
+      secure</strong>.
+    </p>
+    <div>
+      <a 
+        href="/pages/track-your-order"
+        class="btn-inline bdr-radius__normal-extra flex-row__all-center gap-1r"
+      >
+        <span>Go to Tracking Portal</span>
+        <span class="material-symbols-outlined notranslate arrow-slide-right">chevron_right</span>
+      </a>
+      
+    </div>
+  </div>
   <img
     src="{{ 'Track_your_Order_with_AfterShip.png' | file_url }}"
     alt="Track Your Order - Swiftwintek"
-    style="width: 75%; max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); margin-bottom: 2rem;"
-  >
-
-  <h2 class="h1-normal font-wght__bold-regular font-mserrat" style="color: #111827; margin-bottom: 1rem;">Track Your Order</h2>
-  <p class="font-mplus h5-normal color__dark-blue-categry-hdr ltr-spacing__inline line-height__large" style="max-width: 600px; margin: 3rem auto;">
-    Already placed an order? You can check your delivery status at any time using your tracking number. Fast, easy, and
-    secure.
-  </p>
-
-  <a
-    href="/pages/track-your-order"
-    class="btn-inline bdr-radius__normal-extra"
-  >
-    Go to Tracking Portal
-  </a>
+    style="width: 50%; max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.075); margin-bottom: 2rem;"
+    >
 </div>
 
 {% schema %}

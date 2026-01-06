@@ -45,7 +45,7 @@
         "accent": "#0073ff",
         "sidebar_width": 260,
         "sticky_offset": 32,
-        "scroll_margin": 500,
+        "scroll_margin": 200,
         "include_h3": true,
         "include_h4": true,
         "collapse_mobile": true,
