@@ -10,8 +10,8 @@
             <h2 class="font-mserrat color__dark-blue-txt font-wght__bold-regular h2-normal">Shop by Category & Discover</h2>
         </header>
         <nav id="menu-main__nav" class="md-plus-blue__bdr-btm">
-            <ul id="menu-main__nav-list" class="wrapper-base__template-just-start">
-                <li class="margin-right__normal-plus">
+            <ul id="menu-main__nav-list" class="flex-row__just-start gap-4r">
+                <li>
                     <button id="expand-category__list" class="nav__menu-link wrapper-base__template-center border-radius__normal" type="button" aria-label="Expand category list" data-menu-id="shop-by-category">
                         <h3 class="mg__none font-mserrat font-wght__bold h5-xtra color__dark-blue-txt">Shop by category</h3>
                         <span id="chevron-shop-by-category__list-icon" class="material-symbols-outlined notranslate menu-right__chevron">chevron_right</span>
@@ -137,7 +137,7 @@
                         </div>
                     </section>
                 </li>
-                <li class="margin-right__normal-plus">
+                <li>
                     <button id="expand-discover__list" class="nav__menu-link wrapper-base__template-center border-radius__normal" type="button" aria-label="Expand discovery list" data-menu-id="discover">
                         <h3 class="mg__none font-mserrat font-wght__bold h5-xtra color__dark-blue-txt">Discover</h3>
                         <span id="chevron-discover__list-icon" class="material-symbols-outlined notranslate menu-right__chevron">chevron_right</span>
@@ -318,7 +318,7 @@
                         </div>
                     </section>
                 </li>
-                <li class="margin-right__normal-plus">
+                <li>
                     <button id="expand-vendor__list" class="nav__menu-link wrapper-base__template-center border-radius__normal" type="button" aria-label="Expand vendor list" data-menu-id="vendor">
 <h3 class="mg__none font-mserrat font-wght__bold h5-xtra color__dark-blue-txt">Vendor</h3>                        
                         <span id="chevron-vendor__list-icon" class="material-symbols-outlined notranslate menu-right__chevron">chevron_right</span>
@@ -473,7 +473,7 @@ info
                         </div>
                     </section>
                 </li>
-                <li class="flex-row__all-center gap-3r push-right">
+                <li class="flex-row__all-center gap-4r push-right">
                     <img 
                         src="https://cdn-assets.affirm.com/images/buttons/checkout/60x296-blue.png"
                         alt="Check out with Affirm - Monthly Payments on Lilac Background"
@@ -484,28 +484,6 @@ info
                     <div class="stripe-trustbar flex-row__all-center font-mserrat color__dark-blue-txt gap-1r" style="font-size: 0.95rem;">
   <strong><span class="ltr-spacing__inline">3D Secure</span></strong><span>Powered by Stripe</span>
 </div>
-  {% if customer and customer.tags contains 'Eligible250+' and customer.tags contains 'reward_claimed' %}
-    <a href="/pages/redeem-wintek-eggs" class="reward-navbar-btn" title="Spend your Rewards on select items now" aria-label="Spend your Rewards on select items now">
-      <span class="material-symbols-outlined icon">redeem</span>
-      Claim Reward
-    </a>
-  {% elsif customer and customer.tags contains 'Eligible250+' %}
-    <a href="/pages/reward-claim" class="reward-navbar-btn" title="You've unlocked a reward!" aria-label="Unlock your exclusive Reward discount">
-      <span class="material-symbols-outlined icon">redeem</span>
-      Claim Reward
-    </a>
-  {% elsif customer %}
-    <div class="reward-navbar-placeholder" title="Earn 250+ Wintek Eggs to unlock exclusive rewards">
-      <span class="material-symbols-outlined icon">hourglass_top</span>
-      <span class="text-message">Keep earning to unlock rewards</span>
-    </div>
-  {% else %}
-    <div class="reward-navbar-placeholder" title="Log in to track your Wintek Rewards progress">
-      <span class="material-symbols-outlined icon">lock</span>
-      <a href="/account/login" class="text-link">Log in to track your rewards</a>
-    </div>
-  {% endif %}
-
   <div>
     <a href="/pages/track-your-order#shopify-section-sections--25149438460242__announcement_bar_E6VNaJ" 
       class="btn-inline p-large button-lift" 

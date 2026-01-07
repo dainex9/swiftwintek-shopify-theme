@@ -1,3 +1,11 @@
+.affirm-badge {
+  height: 19px;
+  width: auto;
+  vertical-align: middle;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 .tracking-background{
   position: relative;
     background-image: url("https://cdn.shopify.com/s/files/1/0795/4854/7410/files/order-tracking-background-abstract-blue.jpg?v=1767757631");
@@ -2456,6 +2464,9 @@ h2[id^="Comments-"]::before {
 }
 .gap-5r {
   gap: 5rem;
+}
+.gap-4-5r {
+  gap: 4.5rem;
 }
 .gap-4r {
   gap: 4rem;
@@ -5026,10 +5037,7 @@ body .swtek-cta__list li::marker {
 /* -ALT NAVBAR- */
 @media (min-width: 900px) {
   #alt-nav__all-wrapper {
-    padding-top: 10rem;
-    padding-bottom: 5rem;
-    padding-left: 12rem;
-    padding-right: 12rem;
+    padding: 7rem 12rem;
   }
 }
 /*-- PRODUCT PAGE --*/
@@ -5219,6 +5227,7 @@ strong {
 #first-alt-navbar__wrapper li {
   align-items: center;
   color: #393f52;
+  margin: 0 !important;
 }
 /*PRODUCT PAGE */
 .product__info-wrapper .caption-with-letter-spacing {
@@ -5876,15 +5885,6 @@ label {
 #alt-nav__right-wrapper .material-symbols-outlined,
 #collaps-side__top-section .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
-}
-#first-alt-navbar__wrapper {
-  position: relative;
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-  justify-content: center;
-  top: -3rem;
-  margin: 0;
 }
 #seasonal-drop__wdw a,
 #seasonal-drop__wdw label {
