@@ -1,6 +1,38 @@
+.tracking-background{
+  position: relative;
+    background-image: url("https://cdn.shopify.com/s/files/1/0795/4854/7410/files/order-tracking-background-abstract-blue.jpg?v=1767757631");
+  background-size: cover;
+  background-position: center;
+}
+.tracking-background img {
+  filter: saturate(0.9);
+  filter: brightness(0.98);
+}
+.tracking-background .btn-inline {
+  box-shadow: 0 6px 16px rgba(0, 115, 255, 0.35);
+}
+.tracking-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(232, 234, 242, 0.72) 0%,   /* cooler, grayer blue */
+    rgba(245, 247, 250, 0.80) 30%,
+    rgb(248, 248, 248) 75%
+  );
+  pointer-events: none;
+}
+
+.tracking-background > *{
+  position: relative;
+  z-index: 1;
+}
+
 /* Apply this to the element that has the background + shadow */
 .slant-right {
-  --slant: 18px;              /* size of the slant */
+  --slant: 4px;              /* size of the slant */
+  --stripe-offset: 26px; /* how close to text */
   --bg: #fff;                 /* background color of the card */
 
   position: relative;
@@ -10,6 +42,7 @@
   background: var(--bg);
   overflow: visible;          /* keep shadow visible */
   padding-right: calc(1.5rem + var(--slant)); /* room for the slant */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
 /* Creates the diagonal "cut" by covering the corner with page background */
@@ -18,17 +51,16 @@
   position: absolute;
   top: 0;
   right: 0;
-
+  right: var(--stripe-offset); /* ← KEY CHANGE */
   width: var(--slant);
   height: 100%;
-
+  border-radius: 1px;
   background: var(--page-bg, transparent);
   transform: skewX(-20deg);
   transform-origin: top right;
 
   pointer-events: none;
 }
-
 .track-title--mplus {
   line-height: 1;
   transform: translateY(-2.75px);
@@ -2268,8 +2300,15 @@ button.drawer__close:hover .svg-wrapper svg {
 .article-card__read-more {
   font-size: 1.7rem !important;
 }
-body .grid__item:not(.slideshow__slide):not(.product-all) {
+.product-grid.contains-card--product .grid__item {
   width: fit-content !important;
+}
+.coll-curated-row__wrapper .grid {
+  --grid-desktop-horizontal-spacing: -4em; /* try 8–16px */
+  --grid-mobile-horizontal-spacing: 10px;
+}
+.related-products .product-grid {
+  gap: 1rem 0 !important;
 }
 
 .wintek-related-grid__item:hover {
@@ -6493,13 +6532,13 @@ html {
 .btn-inline,
 .cart__login-paragraph .underlined-link {
   background: blue;
-  padding: 0.75rem 1.2rem;
+  padding: 0.75rem 1.5rem;
   border: none;
   box-shadow: 0 1px 6px #797f85;
   border-radius: 6px;
   transition: background 0.25s ease;
   color: #fcfcfc !important;
-  font-family: "M Plus 1", sans-serif;
+  font-family: "M Plus 1", sans-serif, system-ui;
   font-weight: 700 !important;
   vertical-align: middle !important;
   display: inline-flex !important;
@@ -7193,6 +7232,9 @@ body .mg__none {
 }
 .swtek-box__padding {
   padding: 5px;
+}
+.swtek-box__padding--xtra {
+  padding: 7.5px;
 }
 .box__padding-micro {
   padding: 0.5rem;
