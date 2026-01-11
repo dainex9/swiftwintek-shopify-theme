@@ -1,0 +1,73 @@
+{% schema %}
+{
+  "name": "Category Navigation Group",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Group title",
+      "default": "Category Group"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "ARIA label",
+      "default": "Category navigation"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_item",
+      "name": "Category Item",
+      "settings": [
+        { "type": "url", "id": "link", "label": "Category link" },
+        { "type": "image_picker", "id": "image", "label": "Category image" },
+        { "type": "text", "id": "title", "label": "Category title" },
+        { "type": "text", "id": "aria_label", "label": "ARIA label" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Navigation Group",
+      "category": "Navigation"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="wrapper-base__template-align-start">
+  <div>
+    <h2 class="color__dark-blue-categry-hdr margin-top__thicker font-size_large font-mplus font-wght__bold wrapper-base__template-center margin-bottom__thickest">
+      {{ section.settings.title }}
+    </h2>
+
+    <nav aria-label="{{ section.settings.aria_label }}">
+      <ul class="wrapper-base__template-column-all-left category-row">
+        {% for block in section.blocks %}
+          <li {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.link }}"
+               aria-label="{{ block.settings.aria_label }}"
+               class="wrapper-base__template-just-start color__card-dimgrey-std margin-bottom__thickest border-radius__strongest">
+
+              {% if block.settings.image %}
+                <img src="{{ block.settings.image | image_url: width: 140 }}"
+                     alt="{{ block.settings.title }}"
+                     width="70"
+                     loading="lazy">
+              {% endif %}
+
+              <h3 class="margin-right__thick margin-left__thick">
+                {{ block.settings.title }}
+              </h3>
+
+              <span class="material-symbols-outlined color__dark-blue-txt notranslate">
+                keyboard_arrow_right
+              </span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</section>

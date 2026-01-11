@@ -26,10 +26,14 @@
     <button id="reset-filters" class="reset-filters-btn">Reset Filters</button>
   </div>
   <!-- NEW container for active filters pills -->
-  <div class="flex-row__just-start gap-2r thin-lgrey__border-top padding-top__micro padding-bottom__narrow">
-    <h2 class="font-mserrat color__dark-blue-categry-hdr font-wght__bold h4-normal">Filter:</h2>
-    <div id="active-filters"></div>
+  <div class="articles-meta-bar flex-row__just-start gap-2r">
+    <div class="flex-row__just-start gap-1r">
+      <h2 class="font-mserrat color__dark-blue-categry-hdr font-wght__bold h4-normal mg__none">Filter:</h2>
+      <div id="active-filters"></div>
+    </div>
+    <p id="articles-count" style="opacity: 0.85;" class="articles-count mg__none h5-xtra"></p>
   </div>
+  
   <!-- JS-rendered Articles -->
   <div id="blog-articles" class="blog-articles-grid"></div>
   <p id="no-articles-message" style="display: none; text-align: center; color: #777;" class="h4-normal mg-top__thicker-plus">

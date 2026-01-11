@@ -1451,5 +1451,16 @@
         "default": "scheme-1"
       }
     ]
-  }
+  },
+  {
+  "name": "API / Storefront",
+  "settings": [
+    {
+      "type": "text",
+      "id": "storefront_token",
+      "label": "Storefront API Token",
+      "info": "Public Storefront API token used for frontend data fetching"
+    }
+  ]
+}
 ]

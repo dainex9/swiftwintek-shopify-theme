@@ -28,7 +28,7 @@
           "settings": {}
         },
         "synctrack_edd_omega_estimated_shipping_aTXpPG": {
-          "type": "shopify://apps/synctrack-edd/blocks/omega-estimated-shipping/054646a4-d5ab-4b85-b028-f3b169802e74",
+          "type": "shopify://apps/s-estimated-delivery-date-eta/blocks/omega-estimated-shipping/054646a4-d5ab-4b85-b028-f3b169802e74",
           "settings": {}
         },
         "price": {

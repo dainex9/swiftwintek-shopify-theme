@@ -1,3 +1,66 @@
+body .login-footer-btn {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.12);
+  box-shadow: none !important;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.login-footer-btn:hover {
+  background: rgba(0,0,0,0.03) !important;
+  transform: translateY(-1px);
+}
+.rot-180 {
+  rotate: 180deg;
+}
+/* Image Zoom */
+.swtek-img-zoom {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 9999;
+}
+
+.swtek-img-zoom.is-open {
+  display: grid;
+}
+
+.swtek-img-zoom__img {
+  max-width: min(1100px, 95vw);
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+}
+
+.swtek-img-zoom__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 44px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.swtek-img-zoom__close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Optional: prevent background scroll while zoom is open */
+body.swtek-zoom-lock {
+  overflow: hidden;
+}
+/* ENDS HERE */
+
+/* AFFIRM BADGE */
 .affirm-badge {
   height: 19px;
   width: auto;
@@ -73,14 +136,18 @@
   line-height: 1;
   transform: translateY(-2.75px);
 }
-.arrow-slide-right {
+.arrow-slide {
   display: inline-block;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
-
-.btn-inline:hover .arrow-slide-right {
-  transform: translateX(3px);
+.btn-inline:hover .arrow-slide {
   opacity: 0.9;
+}
+.btn-inline:hover .arrow-slide--left {
+  transform: translateX(-3px);
+}
+.btn-inline:hover .arrow-slide--right {
+  transform: translateX(3px);
 }
 .btn-inline .material-symbols-outlined {
   vertical-align: middle;
@@ -185,10 +252,6 @@
 .soft-txt {
   opacity: 50%;
 }
-/** Newsletter Blurb Component Styles **/
-.newsletter-button {
-  letter-spacing: .015em !important;
-}
 /* Input base (typed text) */
 .newsletter-form .newsletter-input {
   width: 100%;
@@ -248,12 +311,12 @@ body #newsletter-blurb__thin {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-
+  cursor: default;
   /* Adjust this value */
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
 
   /* Optional but recommended */
-  max-height: calc(1.3em * 3);
+  max-height: calc(1.5em * 3);
 }
 
 .ws-no-wrap {
@@ -583,7 +646,7 @@ body .swtek-article-wrapper > header {
 }
 
 .swtek-article__figure .swtek-img-zoom:hover img {
-  transform: scale(1.06);
+  transform: scale(1.07);
   filter: brightness(0.9);
 }
 
@@ -787,7 +850,7 @@ body .swtek-article-layout-wrapper {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  background: #fcfcfc;
+  background: #F6F7F9;
   padding: .9rem 3rem;
 }
 @media (min-width: 768px) {
@@ -812,16 +875,19 @@ body .swtek-article-layout-wrapper {
   /* THE MAGIC */
   clip-path: inset(0 0 0 0 round 4px);
 }
-
-/* Apply zoom effect without expanding figure */
-.swtek-article__figure:hover img {
-  transform: scale(1.06);
-  filter: brightness(0.65);
+.swtek-article__figure .swtek-img-zoomable img {
+  margin: 0 !important;
+  width: 100vw !important;
+}
+.swtek-article__figure .swtek-img-zoomable {
+  overflow: hidden !important;
+}
+.swtek-article__figure:not(.swtek-hero-figure) .swtek-img-zoomable {
+  position: relative;
 }
 
-
 /* Material icon overlay */
-.swtek-article__figure::after {
+.swtek-article__figure .swtek-img-zoomable::after {
   content: "zoom_in";
   font-family: 'Material Symbols Outlined';
   font-weight: 400;
@@ -830,15 +896,16 @@ body .swtek-article-layout-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.7);
+  transform: translate(-50%, -50%) scale(0.4);
   color: white;
   opacity: 0;
   text-shadow: 0px 0px 12px rgba(0,0,0,0.45);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
+  z-index: 10 !important;
 }
 
-.swtek-article__figure:hover::after {
+.swtek-article__figure .swtek-img-zoomable:hover::after {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
@@ -893,17 +960,48 @@ body .swtek-article-layout-wrapper {
 
 .swtek-article__figure img {
   max-width: 100%;
-  border-radius: 14px;
+  border-radius: 0 !important;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
+.swtek-article__figure img:hover {
+  cursor: pointer;
+  transform: scale(1.06);
+  filter: brightness(0.75);
+}
+
+.swtek-article__figure::before{
+  bottom: 0;
+  height: 0;
+}
+
+.swtek-article__figure figcaption{
+  position: relative;
+  padding: 12px 0;
+}
+
+.swtek-article__figure figcaption:not(.swtek-hero__caption)::before {
+  content: "";
+  position: absolute;
+  left: 7.5px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 999px;
+  background: #0073ff;
+}
+
+.swtek-article__grid--2 > .swtek-article__figure:last-child figcaption::before{
+  left:auto;
+  right: 7.5px;
+}
+
 
 .swtek-article__figure figcaption {
   font-family: "M Plus 1", system-ui, sans-serif;
-  border-left: 2px solid #0073ff;
   font-size: 1.15rem;
   color: #2b3041;
   margin-top: 1rem;
-  background: #FCFCFC;
+  background: #F6F7F9;
   padding: .8rem 3rem;
   border-radius: 12px;
   line-height: 1.8;
@@ -915,6 +1013,7 @@ body .swtek-article-layout-wrapper {
 }
 .swtek-article__grid {
   display: grid;
+  gap: .5rem;
 }
 
 .swtek-article__grid--2 {
@@ -988,6 +1087,18 @@ body .swtek-article-layout-wrapper {
   height: 275px !important;
   object-fit: cover;
   border-radius: 28px !important;
+}
+.swtek-img-zoomable {
+  z-index: 1;
+}
+
+.swtek-hero__overlay {
+
+  pointer-events: none; /* but doesn't block hover */
+}
+
+.swtek-img-zoomable::after {
+  z-index: 5; /* icon above overlay */
 }
 
 .swtek-hero__overlay {
@@ -2205,6 +2316,9 @@ body .template-page.page-track-your-order .main-page-title {
 .ltr-spacing__inline--xtr {
   letter-spacing: 0.08em;
 }
+.ltr-spacing__inline--xl {
+  letter-spacing: 0.06em;
+}
 .ltr-spacing__inline {
   letter-spacing: 0.05em; /* subtle but effective */
 }
@@ -2285,12 +2399,15 @@ button.drawer__close:hover .svg-wrapper svg {
 .related-article__img {
   max-width: 100%;
   height: auto;
-  transition: transform .3s ease, filter .3s ease, saturate .3s ease;
+  transition: transform .5s ease, filter .3s ease, saturate .4s ease;
+}
+.swtek-img-zoomable--card {
+  overflow: visible;
 }
 .wintek-related-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 3rem 4rem; /* vertical | horizontal */
+  gap: 3rem; /* vertical | horizontal */
   margin: 2rem 0;
 }
 .wintek-related-grid__item {
@@ -2326,7 +2443,7 @@ button.drawer__close:hover .svg-wrapper svg {
     color: rgb(81, 86, 90);
   }
   .related-article__img {
-    transform: scale(1.07);
+    transform: scale(1.05);
     filter: brightness(1.12) saturate(0.95);
   }
   .article-card__read-more,
@@ -2611,6 +2728,7 @@ h2[id^="Comments-"]::before {
 }
 
 .article-container {
+  width: 200px;
   opacity: 1;
   transform: scale(1);
   transition: opacity 250ms ease, transform 250ms ease;
@@ -2646,13 +2764,15 @@ h2[id^="Comments-"]::before {
 }
 .blog-articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(5, max-content);
+  justify-content: start;
+  justify-items: start;        /* keep items left inside cells */
   gap: 10px;
-  margin: 0 auto;
   max-width: 1024px; /* or something like 100% if you want it full width */
-  padding: 0 16px; /* optional, for breathing room on small screens */
 }
-
+.blog-articles-grid .article-container:hover {
+  cursor: pointer;
+}
 /*@media (min-width: 1024px) {
   .blog-articles-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -2689,6 +2809,11 @@ h2[id^="Comments-"]::before {
 .article-date {
   color: #666;
   margin-bottom: 12px;
+}
+.article-card__date,
+ .article-card__readtime {
+  color: var(--color-dark-grey, #666);
+  font-size: 0.95em;
 }
 /* Link styling */
 .article-link {
@@ -4232,6 +4357,7 @@ body .disc-header__special {
 /* ENDS HERE */
 .nav__menu-link {
   color: #2b3041;
+  border-radius: 5px !important;
   border: none;
   cursor: pointer;
   background-color: #fcfcfc;
@@ -7457,7 +7583,7 @@ sticky-header {
 }
 .list-menu .header__menu-item {
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: 5px;
   margin-top: 1rem;
   color: #393f52;
   transition: background 0.25s ease;
@@ -7565,10 +7691,6 @@ ALT HEADER
   align-self: center;
 }
 #alt-navbar__container {
-  position: relative;
-  display: flex;
-  align-items: end;
-  justify-content: center;
   padding: 0 12rem;
 }
 #alt-navbar__container #shop-app__wrapper {
@@ -8768,6 +8890,28 @@ header:not(.page-width) {
     text-align: center;
   }
   /* - BLOGS -*/
+.articles-meta-bar {
+  position: relative;
+  padding-top: 14px;
+  overflow: visible;
+}
+
+.articles-meta-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.10);
+  z-index: 1;
+}
+
+.articles-meta-bar > * {
+  position: relative;
+  z-index: 2;
+}
+
   .main-blog {
     padding: 1rem 3rem;
   }

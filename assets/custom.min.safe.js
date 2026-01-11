@@ -3,6 +3,38 @@
 /* =========================
    Helpers (safe + reusable)
    ========================= */
+  const formatRelativeDateUS = (isoString) => {
+  const d = new Date(isoString);
+  if (Number.isNaN(d.getTime())) return "";
+
+  const now = new Date();
+  const DAY = 24 * 60 * 60 * 1000;
+
+  // normalize to start of day so "Today/Yesterday" is stable
+  const startOfDay = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+  const diffDays = Math.floor((startOfDay(now) - startOfDay(d)) / DAY);
+
+  if (diffDays <= 0) return "Today";
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays < 7) return `${diffDays} days ago`;
+
+  const weeks = Math.floor(diffDays / 7);
+  if (weeks < 5) return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+
+  const months = Math.floor(diffDays / 30.44);
+  if (months < 12) return `${months} month${months > 1 ? "s" : ""} ago`;
+
+  // older than ~1 year: show Month Year (cleaner than "17 months ago")
+  return new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" }).format(d);
+};
+
+const formatISODateTime = (isoString) => {
+  const d = new Date(isoString);
+  if (Number.isNaN(d.getTime())) return "";
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
+
    /* SMOOTH FADE-IN/SLIDE DISCOVERY ICON */
    const icon = document.querySelector('.discovery-icon');
 if (icon) {
@@ -295,7 +327,8 @@ faqQs.forEach((q, index, arr) => {
   this.classList.toggle('rotated');
 });
 
-  async function fetchCollectionDataCached(handle) {
+// then in loadProductSection(...) call fetchCollectionDataCached instead of fetchCollectionData
+async function fetchCollectionDataCached(handle) {
   const key = `coll:${handle}:v1`;
   const cached = sessionStorage.getItem(key);
   if (cached) return JSON.parse(cached);
@@ -304,7 +337,6 @@ faqQs.forEach((q, index, arr) => {
   try { sessionStorage.setItem(key, JSON.stringify(data)); } catch(_) {}
   return data;
 }
-// then in loadProductSection(...) call fetchCollectionDataCached instead of fetchCollectionData
 
 const toPlain = (html) => {
   const d = document.createElement("div");
@@ -402,18 +434,27 @@ const calcListPrice = (lstPrice, curPrice) => {
 const lazyObserver = new IntersectionObserver((entries, obs) => {
   for (const e of entries) {
     if (!e.isIntersecting) continue;
+
     const img = e.target;
+    if (!img.dataset.src) {
+      obs.unobserve(img);
+      continue;
+    }
+    img.onload = () => img.removeAttribute("data-src");
     img.src = img.dataset.src;
-    img.removeAttribute("data-src");
     obs.unobserve(img);
   }
-}, { rootMargin: "300px 0px", threshold: 0.01 });
+}, {
+  rootMargin: "300px 0px",
+  threshold: 0.01,
+});
 
-const lazyLoadImages = (containerId) => {
-  const c = document.getElementById(containerId);
-  if (!c) return;
-  c.querySelectorAll("img[data-src]").forEach(img => lazyObserver.observe(img));
+const lazyLoadImages = (container) => {
+  if (!container) return;
+  container.querySelectorAll("img[data-src]")
+    .forEach(img => lazyObserver.observe(img));
 };
+
 
 /* =========================
    Product card + sections
@@ -426,39 +467,71 @@ const createCard = (
   specialImgWidth,
   specialImgId
 ) => {
-  const id = product.id;
-  const url = `/products/${product.handle}`;
-  const title = product.title;
-  const product_desc = truncate(toPlain(product.descriptionHtml || ""), 40)
-  .replace(/\s*\n\s*/g, " ");
+  // Major safety improvement: escape anything inserted into innerHTML/attributes
+  const esc = (v) =>
+    String(v ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
 
-  const firstVariant = product.variants.edges[0]?.node;
-  const compareAtPrice = firstVariant?.compareAtPrice?.amount ? parseFloat(firstVariant.compareAtPrice.amount) : null;
-  const currentPrice   = firstVariant?.price?.amount         ? parseFloat(firstVariant.price.amount) : null;
-  const createdAt = new Date(product.createdAt);
-  const diffDays = Math.abs(new Date() - createdAt) / (1000 * 60 * 60 * 24);
-  const newBadge = diffDays <= 14 ? `<div class="badge badge--custom label-new abs-pos" style="z-index:1; top:0; left:0;">New</div>` : "";
-  const img_url = product.images.edges[0]?.node?.transformedSrc || specialImgUrl;
-  const vendor = product.vendor || "Brand";
+  const id = product.id;
+  const handle = product.handle || "";
+  const url = `/products/${encodeURIComponent(handle)}`;
+
+  const titleRaw = product.title ?? "";
+  const title = esc(titleRaw);
+
+  const product_desc = esc(
+    truncate(toPlain(product.descriptionHtml || ""), 40).replace(/\s*\n\s*/g, " ")
+  );
+
+  const firstVariant = product.variants?.edges?.[0]?.node;
+  const compareAtPrice =
+    firstVariant?.compareAtPrice?.amount != null
+      ? parseFloat(firstVariant.compareAtPrice.amount)
+      : null;
+  const currentPrice =
+    firstVariant?.price?.amount != null ? parseFloat(firstVariant.price.amount) : null;
+
+  const createdAtMs = Date.parse(product.createdAt);
+  const diffDays = Number.isFinite(createdAtMs)
+    ? Math.abs(Date.now() - createdAtMs) / (1000 * 60 * 60 * 24)
+    : Infinity;
+
+  const newBadge =
+    diffDays <= 14
+      ? `<div class="badge badge--custom label-new abs-pos" style="z-index:1; top:0; left:0;">New</div>`
+      : "";
+
+  const img_url_raw =
+    product.images?.edges?.[0]?.node?.transformedSrc || specialImgUrl || "";
+
+  const img_url = esc(img_url_raw);
+
+  const vendor = esc(product.vendor || "Brand");
+
   const tags = Array.isArray(product.tags) ? product.tags : [];
   let service = serviceTypeLookup(tags);
-
   if (service === "express delivery" || service === "U.S. Super Express") {
     service = displayExpressDetails(service);
   }
+
   const listItem = document.createElement("li");
   const newCard = document.createElement("article");
   newCard.className = "product-all";
   newCard.id = `${id}`;
+
   newCard.innerHTML = ` 
-    <a href="${url}" title="${title}" aria-label="Show product: ${title}">
+    <a href="${esc(url)}" title="${title}" aria-label="Show product: ${title}">
       <figure class="flex-column__all-center mg__none">
         <div style="position: relative; display: inline-block;">
           <div class="image-zoom-wrapper">
             <img class="car-product-card__img"
                 data-src="${img_url}"
                 alt="${title}"
-                width="${imgWidth}" height="${Math.round(imgWidth*1)}"
+                width="${esc(imgWidth)}" height="${esc(Math.round(imgWidth * 1))}"
                 loading="lazy" decoding="async"
                 srcset="${img_url}&width=220 220w, ${img_url}&width=320 320w, ${img_url}&width=480 480w"
                 sizes="(max-width: 480px) 45vw, 300px" />
@@ -466,7 +539,7 @@ const createCard = (
           <div class="flex-column__align-start gap-3r">
             ${newBadge}
             ${
-              (compareAtPrice && currentPrice && compareAtPrice > currentPrice)
+              compareAtPrice && currentPrice && compareAtPrice > currentPrice
                 ? `<div class="cards-custom__badges"><p class="sale-product__badge mg__none">Sale</p>${service}</div>`
                 : ""
             }
@@ -474,7 +547,16 @@ const createCard = (
         </div>
       </figure>
       
-      <img src="${specialImgUrl}" alt="${specialImgAlt}" width="${specialImgWidth}" id="${specialImgId}" loading="lazy"/>
+      <img class="card-special-badge"
+        data-src="${esc(specialImgUrl)}"
+        alt=""
+        aria-hidden="true"
+        width="${esc(specialImgWidth)}"
+        height="auto"
+        id="${esc(specialImgId)}"
+        loading="lazy"
+        decoding="async" />
+
       <p class="product__brand-name margin-top__none">${vendor}</p>
       <div class="car__title-wrap">
         <p class="car__product-title line-height__std-extra"><strong>${title}</strong></p>
@@ -494,6 +576,7 @@ const createCard = (
   listItem.appendChild(newCard);
   return listItem;
 };
+
 const calculatePrice = (compareAtPrice, currentPrice) => {
   if (compareAtPrice && currentPrice && compareAtPrice > currentPrice) {
     const discountPercent = calculateDiscount(compareAtPrice, currentPrice);
@@ -509,6 +592,13 @@ const calculatePrice = (compareAtPrice, currentPrice) => {
       <span class="cur-price"> From $${(currentPrice ?? 0).toFixed(2)} USD</span>
     </div>`;
 }
+const COLLECTION_HANDLES = Object.freeze({
+  featured: "editors-choice",
+  bestsellers: "bestsellers-customers-choice",
+  bargains: "winteks-huge-sale",
+  arrivals: "new-arrivals",
+});
+
 const loadProductSection = async (
   type,
   containerId,
@@ -518,44 +608,66 @@ const loadProductSection = async (
   specialImgSize,
   additionalClass = ""
 ) => {
-  let collectionData;
-  switch (type) {
-    case "featured":    collectionData = await fetchCollectionDataCached("editors-choice"); break;
-    case "bestsellers": collectionData = await fetchCollectionDataCached("bestsellers-customers-choice"); break;
-    case "bargains":    collectionData = await fetchCollectionDataCached("winteks-huge-sale"); break;
-    case "arrivals":    collectionData = await fetchCollectionDataCached("new-arrivals"); break;
-    default: throw new Error("Invalid product type");
-  }
-
-  const products = (collectionData?.products?.edges || []).map((edge) => edge.node);
-  const carouselProducts = shuffleArray(products);
-  const newCards = [];
-
-  for (let i = 0; i < carouselProducts.length; i++) {
-    const newCard = createCard(
-      carouselProducts[i],
-      imgWidth,
-      imgUrl,
-      title,
-      specialImgSize,
-      additionalClass
-    );
-    newCards.push(newCard);
+  const handle = COLLECTION_HANDLES[type];
+  if (!handle) {
+    console.error(`Invalid product type: '${type}'`);
+    return;
   }
 
   const container = document.getElementById(containerId);
-  if (container) {
-    container.append(...newCards);
-    setTimeout(() => { lazyLoadImages(containerId); }, 300);
-  } else {
+  if (!container) {
     console.error(`Container with id '${containerId}' not found.`);
+    return;
   }
+
+  let collectionData;
+  try {
+    // Use cached fetch if you have it; otherwise swap to fetchCollectionData(handle)
+    collectionData = await fetchCollectionDataCached(handle);
+  } catch (err) {
+    console.error(`Failed to fetch collection '${handle}' for type '${type}':`, err);
+    return;
+  }
+
+  const products =
+    collectionData?.products?.edges?.map(edge => edge.node) ?? [];
+
+  if (products.length === 0) {
+    // Optional: you can choose to hide the whole section here if desired
+    console.warn(`No products returned for collection '${handle}' (type '${type}').`);
+    return;
+  }
+
+  const carouselProducts = shuffleArray(products);
+
+  // Build in memory first (faster than repeated append)
+  const frag = document.createDocumentFragment();
+  for (const product of carouselProducts) {
+    frag.appendChild(
+      createCard(product, imgWidth, imgUrl, title, specialImgSize, additionalClass)
+    );
+  }
+
+  container.appendChild(frag);
+
+  // NEW: no timeout needed; observe images inside this container immediately
+  lazyLoadImages(container);
 };
 
 const fetchCollectionData = async (collectionHandle) => {
   const MOBILE = matchMedia("(max-width: 768px)").matches;
   const FIRST  = MOBILE ? 22 : 40;
-  const shop = "swiftwintekstore.com";
+  const shop = "swtek.io";
+
+  const token = document
+    .querySelector('meta[name="storefront-token"]')
+    ?.getAttribute("content");
+
+  if (!token) {
+    console.error("Missing Storefront API token (meta tag).");
+    return [];
+  }
+
   const query = `{
     collectionByHandle(handle: "${collectionHandle}") {
       products(first: ${FIRST}) {
@@ -574,15 +686,17 @@ const fetchCollectionData = async (collectionHandle) => {
       }
     }
   }`;
+
   try {
     const response = await fetch(`https://${shop}/api/2023-04/graphql.json`, {
       method: "POST",
       headers: {
-        "X-Shopify-Storefront-Access-Token": "8578bbf83dbf6bf75577006259cc4321",
+        "X-Shopify-Storefront-Access-Token": token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query }),
     });
+
     const data = await response.json();
     if (!data?.data?.collectionByHandle) throw new Error("Error fetching products");
     return data.data.collectionByHandle;
@@ -1032,8 +1146,17 @@ function initBlog() {
         articlesContainer.appendChild(message);
         return;
       }
+      else {
+        const countEl = document.getElementById("articles-count");
+        if (countEl) {
+          countEl.textContent = `Showing ${articles.length} article${articles.length !== 1 ? "s" : ""}`;
+        }
+      }
       articles.forEach((article) => {
-        const card = document.createElement("div");
+        const card = document.createElement("a");
+        card.href = `${article.url}`;
+        card.ariaLabel = `Learn/read about: ${article.title}`;
+        card.title = `${article.title}"`;
         card.className = "article-container std__box-shadow margin-bottom__narrow";
 
         const imageHtml = article.image
@@ -1057,27 +1180,39 @@ function initBlog() {
         const blogPathMatch = window.location.pathname.match(/^\/blogs\/[^\/]+/);
         const currentBlogPath = blogPathMatch ? blogPathMatch[0] : "/blogs";
         const readTime = article?.read_time || null;
-        const readTimeHtml = readTime
-          ? `<div class="article-card__meta flex-row__just-start gap-sm-pls margin-top__micro" style="transform: translateX(2px);">
-                    <i class="fa-solid fa-sm fa-book-open article-card__meta-icon color__dark-blue-txt" aria-hidden="true"></i>
-                    <span class="article-card__readtime font-mplus color__dark-grey-txt p-large ltr-spac__inline--soft">
-                      ${readTime} min
-                    </span>
-              </div>`
+        const publishedISO = article?.published_at || "";
+        const relDate = publishedISO ? formatRelativeDateUS(publishedISO) : "";
+        const absDate = publishedISO
+          ? new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(new Date(publishedISO))
           : "";
+        const dtAttr = publishedISO ? formatISODateTime(publishedISO) : "";
+        const readTimeHtml = readTime
+        ? `<div class="article-card__meta color__dark-blue-txt flex-row__just-start gap-sm margin-top__micro" style="transform: translateX(2px);">
+              <i class="fa-solid fa-xs fa-book-open article-card__meta-icon" aria-hidden="true"></i>
+              <span class="p-regular article-card__readtime font-mplus ltr-spac__inline--soft">
+                ${readTime} min
+              </span>
+              &bull;
+              <p class="p-regular font-mplus mg__none">
+                <time class="article-card__date"
+                      datetime="${dtAttr}"
+                      title="${absDate}">
+                  ${relDate}
+                </time>
+              </p>
+          </div>`
+        : "";
         card.innerHTML = `
           <div class="article-image-wrapper">${imageHtml}</div>
           <div class="article-card__content color__card-dimgrey-std">
-            <h2 class="text-align-left font-mserrat color__dark-blue-txt h2-normal line-height__std-mini font-wght__bold-regular">${article.title}</h2>
+            <h2 class="article-card__title text-align-left font-mserrat color__dark-blue-txt h3-normal line-height__std-mini font-wght__bold-regular">${article.title}</h2>
             ${readTimeHtml}
             <p class="article-excerpt__custom color__dark-grey-txt margin-bottom__thick p-xlarge line-height__std-extra font-mplus">${excerpt}</p>
             ${tagPills ? `<div class="article-tags">${tagPills}</div>` : ""}
             <div style="transform: translateX(2px);">
-              <p class="thin-lgrey__border-top pd-top__min-plus width-90 h5-normal">
-              <span class="color__dark-blue-categry-hdr" style="font-weight: 550;">${article.author === "Daniel Bäck" ? "Wintek editorial" : article.author}</span>
-              &bull; ${new Date(article.published_at).toLocaleDateString()}
+              <p class="color__dark-grey-txt thin-lgrey__border-top pd-top__min-plus width-90 ltr-spacing__inline--xl" style="font-size: 1.1rem;">
+              <span class="font-wght__bold-regular ltr-spacing__inline--xl">${article.author === "Daniel Bäck" ? "Wintek Editorial" : article.author}</span>
             </p>
-            <a href="${article.url}" title="${article.title}" aria-label="Learn/read about: ${article.title}" class="color__blue font-mplus font-wght__bold h4-normal article-link">Read more</a>
             </div>
           </div>`;
         card.classList.add("fade-in");
@@ -1140,3 +1275,62 @@ function initProduct() {
    ========================= */
 function w3_open() { const el = document.getElementById("mySidebar"); if (el) el.style = "width: 90%; left: 0rem;"; }
 function w3_close() { const el = document.getElementById("mySidebar"); if (el) el.style = "width: 0%; left: -10rem;"; }
+
+// Image zoom
+(() => {
+  const overlay = document.getElementById("swtek-img-zoom");
+  if (!overlay) return;
+
+  const overlayImg = overlay.querySelector(".swtek-img-zoom__img");
+  const closeBtn = overlay.querySelector(".swtek-img-zoom__close");
+
+  let lastFocus = null;
+
+  const openZoom = (imgEl) => {
+    lastFocus = document.activeElement;
+
+    // Use currentSrc if available (handles srcset nicely)
+    const src = imgEl.currentSrc || imgEl.src;
+    overlayImg.src = src;
+    overlayImg.alt = imgEl.alt || "";
+
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("swtek-zoom-lock");
+    closeBtn.focus();
+  };
+
+  const closeZoom = () => {
+    overlay.classList.remove("is-open");
+    overlay.setAttribute("aria-hidden", "true");
+    overlayImg.src = "";
+    overlayImg.alt = "";
+    document.body.classList.remove("swtek-zoom-lock");
+
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+  };
+
+  // Click image -> open
+  document.addEventListener("click", (e) => {
+    const img = e.target.closest(".swtek-article__figure img");
+    if (!img) return;
+
+    // Optional: ignore tiny UI icons if they are images too
+    // if (img.classList.contains("your-icon-class")) return;
+
+    openZoom(img);
+  });
+
+  // Click backdrop -> close (but not if clicking the big image itself)
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeZoom();
+  });
+
+  // Close button
+  closeBtn.addEventListener("click", closeZoom);
+
+  // ESC closes
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("is-open")) closeZoom();
+  });
+})();

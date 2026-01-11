@@ -16,7 +16,6 @@
   <meta name="description" content="Shop high-performance PC parts, gaming accessories, office tech, and collectibles at Swiftwintek. Fast shipping & great deals.">
   {%- endunless -%}
 
-
   <!-- Preconnect for Fonts (Performance Boost) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -474,6 +473,7 @@ FINAL TAG OUTPUT
       ]
     }
     </script>
+    <meta name="storefront-token" content="{{ settings.storefront_token }}">
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -578,5 +578,9 @@ FINAL TAG OUTPUT
   })();
   </script>
 {% endif %}
+<div id="swtek-img-zoom" class="swtek-img-zoom" aria-hidden="true">
+  <button class="swtek-img-zoom__close" type="button" aria-label="Close image zoom">×</button>
+  <img class="swtek-img-zoom__img" alt="">
+</div>
   </body>
 </html>

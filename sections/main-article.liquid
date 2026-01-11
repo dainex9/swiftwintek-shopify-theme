@@ -209,14 +209,16 @@
           <div class="wintek-related-grid__item article-card">
             <a href="{{ a.url }}" class="article-card__link" title="{{ a.title }}" aria-label="{{ a.title }}">
               {% if a.image %}
-                <img 
-  src="{{ a.image | image_url: width: 1000 }}" 
-  alt="{{ a.title | escape }}" 
-  loading="lazy" 
-  width="{{ a.image.width }}" 
-  height="{{ a.image.height }}"
-  class="related-article__img"
->
+                <div class="swtek-img-zoomable--card">
+                  <img 
+                    src="{{ a.image | image_url: width: 1000 }}" 
+                    alt="{{ a.title | escape }}" 
+                    loading="lazy" 
+                    width="{{ a.image.width }}" 
+                    height="{{ a.image.height }}"
+                    class="related-article__img"
+                  >
+                </div>
               {% endif %}
               <div class="mg-left__micro-extra">
                 <div class="flex-row__just-start gap-1r mg-left__micro-plus">
@@ -292,14 +294,17 @@
           <div class="wintek-related-grid__item article-card">
             <a href="{{ a.url }}" class="article-card__link" title="{{ a.title }}" aria-label="{{ a.title }}">
               {% if a.image %}
-                <img 
-                  src="{{ a.image | image_url: width: 1000 }}" 
-                  alt="{{ a.title | escape }}" 
-                  loading="lazy" 
-                  width="{{ a.image.width }}"
-                  height="{{ a.image.height }}"
-                  class="related-article__img"
-                >
+                <div class="swtek-img-zoomable--card">
+                  <img 
+                    src="{{ a.image | image_url: width: 1000 }}" 
+                    alt="{{ a.title | escape }}" 
+                    loading="lazy" 
+                    width="{{ a.image.width }}"
+                    height="{{ a.image.height }}"
+                    class="related-article__img"
+                  >
+                </div>
+                
               {% endif %}
 
               <div class="mg-left__micro-extra">
@@ -347,11 +352,9 @@
 </div>
 
   <div class="article-template__back element-margin-top center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
-      <span class="icon-wrap">
-        <span class="svg-wrapper">
-          {{- 'icon-arrow.svg' | inline_asset_content -}}
-        </span>
+    <a href="{{ blog.url }}" class="gap-sm-pls article-template__link link animate-arrow btn-inline ltr-spacing__inline--xl">
+      <span class="icon-wrap rot-180 mg__none">
+        <span class="material-symbols-outlined notranslate arrow-slide arrow-slide--left"> arrow_back </span>
       </span>
       {{ 'blogs.article.back_to_blog' | t: title: blog.title | escape }}
     </a>
@@ -404,8 +407,8 @@
               assign post_message = 'blogs.article.success_moderated'
             endif
           -%}
-          <div class="flex-row__just-start gap-1r box__pd-plus-wide margin-bottom__medium">
-            <span class="material-symbols-outlined notranslate color__dark-blue-txt"> forum </span>
+          <div class="flex-row__just-start gap-1-5r box__pd-plus-wide margin-bottom__medium">
+            <span class="material-symbols-outlined notranslate color__dark-blue-txt md-48"> forum </span>
             <h2 class="mg__none color__blue">{{ 'blogs.article.comment_form_title' | t }}</h2>
           </div>
           <p class="p-xlarge ltr-spcing__inline--fixed font-mplus md-orange__border-left padding-left__narrow-plus line-height__std-extra margin-bottom__thicker">Comments are moderated before appearing publicly to ensure a helpful and respectful discussion space. Thanks for your patience!</p>
